@@ -38,7 +38,29 @@ export const AnalysisCharts = () => {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                 />
-                <Box mt={2}>
+                <Box mt={2} display="flex" alignItems="center">
+                    <input
+                        accept=".csv"
+                        style={{ display: 'none' }}
+                        id="csv-upload-file"
+                        type="file"
+                        onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (ev) => {
+                                    const content = ev.target?.result as string;
+                                    setText(content);
+                                };
+                                reader.readAsText(file);
+                            }
+                        }}
+                    />
+                    <label htmlFor="csv-upload-file">
+                        <Button variant="outlined" component="span" style={{ marginRight: '16px' }}>
+                            Upload CSV
+                        </Button>
+                    </label>
                     <Button
                         variant="contained"
                         color="secondary"

@@ -115,3 +115,10 @@ kubernetes:
 permission:
   # setting this to `false` will disable permissions
   enabled: true
+
+# VELA Platform Configuration
+vela:
+  openrouter:
+    apiKey: ${OPENROUTER_API_KEY}
+  jina:
+    apiKey: ${JINA_API_KEY}

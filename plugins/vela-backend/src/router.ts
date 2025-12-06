@@ -38,11 +38,56 @@ export async function createRouter({
       throw new InputError('Missing text field');
     }
 
-    // Check auth if needed
     await httpAuth.credentials(req, { allow: ['user'] });
 
     const result = await dataAnalyzer.analyzeText(text);
     res.json(result);
+  });
+
+  router.post('/radar/analyze-sentiment', async (req, res) => {
+    try {
+      const { texts, model } = req.body;
+      if (!texts || !Array.isArray(texts)) {
+        throw new InputError('Missing or invalid texts field');
+      }
+
+      // Optional auth check
+      try {
+        await httpAuth.credentials(req, { allow: ['user'] });
+      } catch {
+        // Allow unauthenticated for now
+      }
+
+      const result = await dataAnalyzer.analyzeSentiment(texts, model);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
+    }
+  });
+
+  router.post('/radar/analyze-topics', async (req, res) => {
+    try {
+      const { texts, model } = req.body;
+      if (!texts || !Array.isArray(texts)) {
+        throw new InputError('Missing or invalid texts field');
+      }
+
+      // Optional auth check
+      try {
+        await httpAuth.credentials(req, { allow: ['user'] });
+      } catch {
+        // Allow unauthenticated for now
+      }
+
+      const result = await dataAnalyzer.analyzeTopics(texts, model);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
+    }
   });
 
   return router;

@@ -5756,7 +5756,9 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.0.0"
     "@testing-library/react": "npm:^14.0.0"
     "@testing-library/user-event": "npm:^14.0.0"
+    "@types/papaparse": "npm:^5.5.1"
     msw: "npm:^1.0.0"
+    papaparse: "npm:^5.5.3"
     react: "npm:^16.13.1 || ^17.0.0 || ^18.0.0"
     react-use: "npm:^17.2.4"
     recharts: "npm:^2.10.3"
@@ -13454,6 +13456,15 @@ __metadata:
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10c0/22ba2bc9f8863101a7e90a56aaeba1eb3ebdc51e847cef4a6d188967ab1acbce9b4f92251372fd0329ecb924bbf610509e122c3dfe346c04dbad04013d4ad7d0
+  languageName: node
+  linkType: hard
+
+"@types/papaparse@npm:^5.5.1":
+  version: 5.5.1
+  resolution: "@types/papaparse@npm:5.5.1"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/b9f82061b9e1089f6a51ab5cd8de947f2dc6ca2ff77603ea7493a51f4d25e3988497b310046dd9546d66819dbe011b35c2897eb28989d982c432b85c14ef5921
   languageName: node
   linkType: hard
 
@@ -26504,6 +26515,13 @@ __metadata:
   version: 1.0.11
   resolution: "pako@npm:1.0.11"
   checksum: 10c0/86dd99d8b34c3930345b8bbeb5e1cd8a05f608eeb40967b293f72fe469d0e9c88b783a8777e4cc7dc7c91ce54c5e93d88ff4b4f060e6ff18408fd21030d9ffbe
+  languageName: node
+  linkType: hard
+
+"papaparse@npm:^5.5.3":
+  version: 5.5.3
+  resolution: "papaparse@npm:5.5.3"
+  checksum: 10c0/623aae6a35703308fd5a39d616fb3837231ebc70697346355ea508154d3f24df75b6554b736afc1924192205518a5db14e75f5e1cf35d154326050a37cdd9447
   languageName: node
   linkType: hard
 
