@@ -41,7 +41,15 @@ export class JinaReader {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error(`Jina Reader API error (${response.status}): ${errorText}`);
+                console.error('Jina API error response:', errorText);
+                throw new Error(`Jina Reader API error (${response.status}): ${errorText.substring(0, 200)}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                const text = await response.text();
+                console.error('Non-JSON response from Jina:', text.substring(0, 500));
+                throw new Error(`Jina Reader returned non-JSON response. Content-Type: ${contentType}`);
             }
 
             const data = await response.json();
