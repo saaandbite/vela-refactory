@@ -64,5 +64,8 @@ backend.add(import('@backstage/plugin-kubernetes-backend'));
 backend.add(import('@backstage/plugin-notifications-backend'));
 backend.add(import('@backstage/plugin-signals-backend'));
 
+// vela plugins
 backend.add(import('@internal/plugin-vela-backend'));
+backend.add(import('@internal/plugin-vela-api-spec'));
+
 backend.start();

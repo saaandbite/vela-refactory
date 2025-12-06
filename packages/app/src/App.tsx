@@ -39,6 +39,7 @@ import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/
 import { NotificationsPage } from '@backstage/plugin-notifications';
 import { SignalsDisplay } from '@backstage/plugin-signals';
 import { VelaPage } from '@internal/backstage-plugin-vela';
+import { VelaApiSpecPage } from '@internal/plugin-vela-api-spec-fe';
 
 const app = createApp({
   apis,
@@ -113,7 +114,9 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/notifications" element={<NotificationsPage />} />
+
     <Route path="/vela" element={<VelaPage />} />
+    <Route path="/vela-api-spec" element={<VelaApiSpecPage />} />
   </FlatRoutes>
 );
 
