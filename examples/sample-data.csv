@@ -1,0 +1,51 @@
+id,customer_feedback,rating,date
+1,"Produk sangat bagus dan berkualitas tinggi! Sangat puas dengan pembelian ini.",5,2024-01-15
+2,"Pengiriman lambat dan packaging kurang rapi. Kecewa dengan pelayanan.",2,2024-01-16
+3,"Harga cukup mahal tapi sebanding dengan kualitas yang didapat.",4,2024-01-17
+4,"Customer service sangat responsif dan membantu menyelesaikan masalah saya.",5,2024-01-18
+5,"Produk tidak sesuai deskripsi. Sangat mengecewakan!",1,2024-01-19
+6,"Kualitas standar, tidak ada yang istimewa tapi juga tidak mengecewakan.",3,2024-01-20
+7,"Fitur aplikasi sangat lengkap dan mudah digunakan. Recommended!",5,2024-01-21
+8,"Aplikasi sering crash dan lemot. Perlu banyak perbaikan.",2,2024-01-22
+9,"Desain UI/UX sangat menarik dan user-friendly.",4,2024-01-23
+10,"Harga terlalu mahal untuk fitur yang ditawarkan.",2,2024-01-24
+11,"Sangat membantu pekerjaan sehari-hari. Worth it!",5,2024-01-25
+12,"Proses registrasi terlalu rumit dan membingungkan.",2,2024-01-26
+13,"Update terbaru membuat aplikasi lebih stabil dan cepat.",4,2024-01-27
+14,"Fitur pembayaran sangat aman dan terpercaya.",5,2024-01-28
+15,"Tidak ada notifikasi untuk transaksi penting. Kurang informatif.",3,2024-01-29
+16,"Support team sangat helpful dan fast response.",5,2024-01-30
+17,"Banyak bug yang mengganggu pengalaman pengguna.",2,2024-01-31
+18,"Integrasi dengan platform lain berjalan lancar.",4,2024-02-01
+19,"Dokumentasi API kurang lengkap dan sulit dipahami.",2,2024-02-02
+20,"Overall experience sangat memuaskan. Akan terus menggunakan.",5,2024-02-03
+21,"Loading time terlalu lama, perlu optimasi.",3,2024-02-04
+22,"Fitur search sangat akurat dan cepat.",4,2024-02-05
+23,"Tidak ada opsi untuk customize dashboard. Kurang fleksibel.",3,2024-02-06
+24,"Security features sangat baik dan memberikan rasa aman.",5,2024-02-07
+25,"Harga subscription terlalu tinggi untuk individual user.",2,2024-02-08
+26,"Tutorial dan onboarding sangat jelas dan membantu.",4,2024-02-09
+27,"Performa aplikasi menurun setelah update terakhir.",2,2024-02-10
+28,"Fitur kolaborasi tim sangat memudahkan pekerjaan.",5,2024-02-11
+29,"Tidak ada dark mode. Mata cepat lelah saat penggunaan lama.",3,2024-02-12
+30,"Export data sangat mudah dan support berbagai format.",4,2024-02-13
+31,"Aplikasi sering logout sendiri. Sangat mengganggu.",2,2024-02-14
+32,"Analytics dashboard sangat informatif dan detail.",5,2024-02-15
+33,"Mobile app kurang responsive dibanding web version.",3,2024-02-16
+34,"Automation features menghemat banyak waktu.",5,2024-02-17
+35,"Tidak ada opsi untuk backup data secara manual.",3,2024-02-18
+36,"Integration dengan email client berjalan sempurna.",4,2024-02-19
+37,"Terlalu banyak iklan yang mengganggu.",2,2024-02-20
+38,"Notification system sangat baik dan tidak spam.",4,2024-02-21
+39,"Fitur premium tidak worth it dengan harga yang ditawarkan.",2,2024-02-22
+40,"Sangat puas dengan semua fitur yang tersedia.",5,2024-02-23
+41,"Proses checkout terlalu panjang dan ribet.",2,2024-02-24
+42,"Multi-language support sangat membantu.",4,2024-02-25
+43,"Tidak ada opsi untuk trial period. Langsung bayar.",3,2024-02-26
+44,"Real-time sync bekerja dengan sempurna.",5,2024-02-27
+45,"Customer feedback tidak pernah ditanggapi.",2,2024-02-28
+46,"Template yang disediakan sangat bervariasi dan menarik.",4,2024-03-01
+47,"Aplikasi terlalu berat dan memakan banyak storage.",2,2024-03-02
+48,"Reporting features sangat comprehensive.",5,2024-03-03
+49,"Tidak ada opsi untuk customize notification.",3,2024-03-04
+50,"Overall sangat recommended untuk business use.",5,2024-03-05

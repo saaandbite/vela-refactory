@@ -1,0 +1,324 @@
+{
+  "site": {
+    "title": "Example Site - Minimal Landing Page",
+    "description": "A minimal landing page example",
+    "logo": "https://example.com/logo.png",
+    "language": "en"
+  },
+  "theme": {
+    "primary": "#3b82f6",
+    "secondary": "#8b5cf6",
+    "background": "#ffffff",
+    "text": "#1f2937",
+    "mode": "light",
+    "borderRadius": "8px",
+    "fontFamily": "Inter, sans-serif"
+  },
+  "navbar": {
+    "type": "sticky",
+    "links": [
+      { "label": "Home", "path": "/" },
+      { "label": "Features", "path": "#features" },
+      { "label": "Pricing", "path": "#pricing" },
+      { "label": "Contact", "path": "#contact" }
+    ],
+    "cta": {
+      "text": "Get Started",
+      "href": "/signup",
+      "variant": "primary"
+    }
+  },
+  "footer": {
+    "layout": "columns",
+    "tagline": "Building the future together",
+    "sections": [
+      {
+        "title": "Product",
+        "links": [
+          { "label": "Features", "path": "/features" },
+          { "label": "Pricing", "path": "/pricing" },
+          { "label": "Documentation", "path": "/docs" }
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          { "label": "About", "path": "/about" },
+          { "label": "Blog", "path": "/blog" },
+          { "label": "Careers", "path": "/careers" }
+        ]
+      },
+      {
+        "title": "Legal",
+        "links": [
+          { "label": "Privacy", "path": "/privacy" },
+          { "label": "Terms", "path": "/terms" }
+        ]
+      }
+    ],
+    "social": [
+      { "platform": "twitter", "url": "https://twitter.com/example" },
+      { "platform": "linkedin", "url": "https://linkedin.com/company/example" },
+      { "platform": "github", "url": "https://github.com/example" }
+    ],
+    "bottom": {
+      "copyright": "© 2024 Example Company. All rights reserved.",
+      "links": [
+        { "label": "Privacy Policy", "path": "/privacy" },
+        { "label": "Terms of Service", "path": "/terms" }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "path": "/",
+      "title": "Home - Example Site",
+      "description": "Welcome to our example site",
+      "sections": [
+        {
+          "type": "hero",
+          "content": {
+            "title": "Build Amazing Products Faster",
+            "subtitle": "The all-in-one platform for modern teams",
+            "description": "Transform your workflow with our powerful tools and integrations",
+            "height": "full",
+            "alignment": "center",
+            "cta": {
+              "text": "Start Free Trial",
+              "href": "/signup",
+              "variant": "primary",
+              "icon": "arrow-right"
+            },
+            "secondaryCta": {
+              "text": "View Demo",
+              "href": "/demo",
+              "variant": "outline",
+              "icon": "play"
+            }
+          }
+        },
+        {
+          "type": "partners",
+          "content": {
+            "title": "Trusted by leading companies",
+            "layout": "marquee",
+            "grayscale": true,
+            "partners": [
+              { "name": "Company A", "logo": "https://example.com/logo-a.svg" },
+              { "name": "Company B", "logo": "https://example.com/logo-b.svg" },
+              { "name": "Company C", "logo": "https://example.com/logo-c.svg" }
+            ]
+          }
+        },
+        {
+          "type": "features",
+          "content": {
+            "title": "Everything You Need",
+            "subtitle": "Powerful features for modern teams",
+            "layout": "grid",
+            "columns": 3,
+            "features": [
+              {
+                "title": "Fast Performance",
+                "description": "Lightning-fast load times and smooth interactions",
+                "icon": "zap",
+                "iconColor": "#f59e0b"
+              },
+              {
+                "title": "Secure by Default",
+                "description": "Enterprise-grade security built into every layer",
+                "icon": "shield",
+                "iconColor": "#10b981"
+              },
+              {
+                "title": "Easy Integration",
+                "description": "Connect with your favorite tools in minutes",
+                "icon": "plug",
+                "iconColor": "#3b82f6"
+              }
+            ]
+          }
+        },
+        {
+          "type": "stats",
+          "content": {
+            "title": "Trusted by Thousands",
+            "layout": "grid",
+            "columns": 4,
+            "stats": [
+              {
+                "label": "Active Users",
+                "value": "50",
+                "suffix": "K+",
+                "icon": "users"
+              },
+              {
+                "label": "Projects Created",
+                "value": "1",
+                "suffix": "M+",
+                "icon": "folder"
+              },
+              {
+                "label": "Success Rate",
+                "value": "99.9",
+                "suffix": "%",
+                "icon": "check-circle"
+              },
+              {
+                "label": "Countries",
+                "value": "150",
+                "suffix": "+",
+                "icon": "globe"
+              }
+            ]
+          }
+        },
+        {
+          "type": "pricing",
+          "content": {
+            "title": "Simple, Transparent Pricing",
+            "subtitle": "Choose the plan that works for you",
+            "billingToggle": {
+              "enabled": true,
+              "monthly": "Monthly",
+              "yearly": "Yearly",
+              "discount": "Save 20%"
+            },
+            "columns": 3,
+            "plans": [
+              {
+                "name": "Starter",
+                "description": "Perfect for individuals",
+                "price": {
+                  "monthly": "0",
+                  "yearly": "0",
+                  "currency": "$",
+                  "period": "/month"
+                },
+                "features": [
+                  { "text": "Up to 3 projects", "included": true },
+                  { "text": "Basic features", "included": true },
+                  { "text": "Community support", "included": true },
+                  { "text": "Advanced analytics", "included": false }
+                ],
+                "cta": {
+                  "text": "Get Started",
+                  "href": "/signup",
+                  "variant": "outline"
+                }
+              },
+              {
+                "name": "Pro",
+                "description": "For growing teams",
+                "featured": true,
+                "badge": {
+                  "text": "Most Popular",
+                  "variant": "primary"
+                },
+                "price": {
+                  "monthly": "29",
+                  "yearly": "279",
+                  "currency": "$",
+                  "period": "/month"
+                },
+                "features": [
+                  { "text": "Unlimited projects", "included": true },
+                  { "text": "All features", "included": true },
+                  { "text": "Priority support", "included": true },
+                  { "text": "Advanced analytics", "included": true }
+                ],
+                "cta": {
+                  "text": "Start Free Trial",
+                  "href": "/signup",
+                  "variant": "primary"
+                }
+              },
+              {
+                "name": "Enterprise",
+                "description": "For large organizations",
+                "price": {
+                  "monthly": "Custom",
+                  "yearly": "Custom",
+                  "currency": "",
+                  "period": ""
+                },
+                "features": [
+                  { "text": "Everything in Pro", "included": true },
+                  { "text": "Dedicated support", "included": true },
+                  { "text": "Custom integrations", "included": true },
+                  { "text": "SLA guarantee", "included": true }
+                ],
+                "cta": {
+                  "text": "Contact Sales",
+                  "href": "/contact",
+                  "variant": "outline"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "testimonials",
+          "content": {
+            "title": "What Our Customers Say",
+            "subtitle": "Don't just take our word for it",
+            "layout": "grid",
+            "columns": 3,
+            "testimonials": [
+              {
+                "name": "Sarah Johnson",
+                "role": "CEO",
+                "company": "TechCorp",
+                "avatar": "https://example.com/avatar-1.jpg",
+                "content": "This platform has transformed how our team works. The productivity gains are incredible!",
+                "rating": 5
+              },
+              {
+                "name": "Michael Chen",
+                "role": "Product Manager",
+                "company": "StartupXYZ",
+                "avatar": "https://example.com/avatar-2.jpg",
+                "content": "Easy to use, powerful features, and excellent support. Highly recommended!",
+                "rating": 5
+              },
+              {
+                "name": "Emily Davis",
+                "role": "Designer",
+                "company": "Creative Studio",
+                "avatar": "https://example.com/avatar-3.jpg",
+                "content": "The best tool we've used for collaboration. Our team loves it!",
+                "rating": 5
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta",
+          "content": {
+            "title": "Ready to Get Started?",
+            "subtitle": "Join thousands of teams already using our platform",
+            "layout": "centered",
+            "background": "gradient",
+            "primaryCta": {
+              "text": "Start Free Trial",
+              "href": "/signup",
+              "variant": "primary",
+              "icon": "arrow-right",
+              "size": "large"
+            },
+            "secondaryCta": {
+              "text": "Schedule Demo",
+              "href": "/demo",
+              "variant": "outline"
+            },
+            "features": [
+              { "text": "No credit card required", "icon": "check" },
+              { "text": "14-day free trial", "icon": "check" },
+              { "text": "Cancel anytime", "icon": "check" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

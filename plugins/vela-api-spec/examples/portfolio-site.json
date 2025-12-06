@@ -1,0 +1,432 @@
+{
+  "site": {
+    "title": "Creative Studio - Portfolio",
+    "description": "Award-winning creative agency specializing in digital experiences",
+    "logo": "https://example.com/logo-dark.svg",
+    "favicon": "https://example.com/favicon.ico",
+    "language": "en"
+  },
+  "theme": {
+    "primary": "#f59e0b",
+    "secondary": "#ec4899",
+    "accent": "#8b5cf6",
+    "background": "#0f172a",
+    "surface": "#1e293b",
+    "text": "#f1f5f9",
+    "textSecondary": "#94a3b8",
+    "border": "#334155",
+    "mode": "dark",
+    "borderRadius": "16px",
+    "fontFamily": "Inter, sans-serif"
+  },
+  "navbar": {
+    "type": "sticky",
+    "transparent": true,
+    "logo": {
+      "image": "https://example.com/logo-white.svg",
+      "text": "Creative Studio"
+    },
+    "links": [
+      { "label": "Work", "path": "/work" },
+      { "label": "Services", "path": "/services" },
+      { "label": "About", "path": "/about" },
+      { "label": "Blog", "path": "/blog" },
+      { "label": "Contact", "path": "/contact" }
+    ],
+    "cta": {
+      "text": "Start Project",
+      "href": "/contact",
+      "variant": "primary",
+      "icon": "arrow-right"
+    },
+    "social": [
+      {
+        "platform": "instagram",
+        "url": "https://instagram.com/creativestudio"
+      },
+      { "platform": "dribbble", "url": "https://dribbble.com/creativestudio" },
+      { "platform": "behance", "url": "https://behance.net/creativestudio" }
+    ]
+  },
+  "footer": {
+    "layout": "columns",
+    "showLogo": true,
+    "logo": {
+      "image": "https://example.com/logo-white.svg"
+    },
+    "tagline": "Crafting digital experiences that inspire and engage",
+    "sections": [
+      {
+        "title": "Services",
+        "links": [
+          { "label": "Brand Identity", "path": "/services/branding" },
+          { "label": "Web Design", "path": "/services/web-design" },
+          { "label": "Mobile Apps", "path": "/services/mobile" },
+          { "label": "Digital Marketing", "path": "/services/marketing" }
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          { "label": "About Us", "path": "/about" },
+          { "label": "Our Team", "path": "/team" },
+          { "label": "Careers", "path": "/careers" },
+          { "label": "Contact", "path": "/contact" }
+        ]
+      },
+      {
+        "title": "Resources",
+        "links": [
+          { "label": "Blog", "path": "/blog" },
+          { "label": "Case Studies", "path": "/case-studies" },
+          { "label": "Design System", "path": "/design-system" },
+          { "label": "Press Kit", "path": "/press" }
+        ]
+      }
+    ],
+    "contact": {
+      "email": "hello@creativestudio.com",
+      "phone": "+1 (555) 123-4567",
+      "address": "123 Creative Street, Design City, DC 12345"
+    },
+    "newsletter": {
+      "enabled": true,
+      "title": "Stay Updated",
+      "description": "Get the latest design insights and project updates",
+      "placeholder": "Enter your email",
+      "buttonText": "Subscribe"
+    },
+    "social": [
+      {
+        "platform": "instagram",
+        "url": "https://instagram.com/creativestudio"
+      },
+      { "platform": "dribbble", "url": "https://dribbble.com/creativestudio" },
+      { "platform": "behance", "url": "https://behance.net/creativestudio" },
+      { "platform": "twitter", "url": "https://twitter.com/creativestudio" },
+      {
+        "platform": "linkedin",
+        "url": "https://linkedin.com/company/creativestudio"
+      }
+    ],
+    "bottom": {
+      "copyright": "© 2024 Creative Studio. All rights reserved.",
+      "links": [
+        { "label": "Privacy Policy", "path": "/privacy" },
+        { "label": "Terms of Service", "path": "/terms" },
+        { "label": "Cookie Policy", "path": "/cookies" }
+      ]
+    },
+    "background": "gradient"
+  },
+  "pages": [
+    {
+      "path": "/",
+      "title": "Creative Studio - Award-winning Digital Agency",
+      "description": "We create stunning digital experiences that transform brands",
+      "sections": [
+        {
+          "type": "hero",
+          "content": {
+            "title": "We Create Digital Experiences That Matter",
+            "subtitle": "Award-winning creative agency",
+            "description": "Transforming brands through design, strategy, and innovation since 2015",
+            "height": "full",
+            "alignment": "left",
+            "backgroundVideo": "https://example.com/hero-video.mp4",
+            "overlay": {
+              "enabled": true,
+              "color": "#000000",
+              "opacity": 0.6
+            },
+            "badges": [
+              { "text": "Award Winning", "icon": "trophy" },
+              { "text": "50+ Projects", "icon": "briefcase" },
+              { "text": "10+ Years", "icon": "calendar" }
+            ],
+            "cta": {
+              "text": "View Our Work",
+              "href": "/work",
+              "variant": "primary",
+              "icon": "arrow-right",
+              "size": "large"
+            },
+            "secondaryCta": {
+              "text": "Watch Showreel",
+              "href": "/showreel",
+              "variant": "outline",
+              "icon": "play"
+            }
+          }
+        },
+        {
+          "type": "partners",
+          "content": {
+            "title": "Trusted by Industry Leaders",
+            "layout": "marquee",
+            "grayscale": true,
+            "partners": [
+              { "name": "Google", "logo": "https://example.com/google.svg" },
+              {
+                "name": "Microsoft",
+                "logo": "https://example.com/microsoft.svg"
+              },
+              { "name": "Apple", "logo": "https://example.com/apple.svg" },
+              { "name": "Amazon", "logo": "https://example.com/amazon.svg" },
+              { "name": "Netflix", "logo": "https://example.com/netflix.svg" }
+            ]
+          }
+        },
+        {
+          "type": "grid",
+          "content": {
+            "title": "Featured Projects",
+            "subtitle": "Our Latest Work",
+            "description": "Explore our portfolio of award-winning digital experiences",
+            "columns": 3,
+            "style": "overlay",
+            "filter": {
+              "enabled": true,
+              "categories": [
+                "All",
+                "Branding",
+                "Web Design",
+                "Mobile",
+                "Marketing"
+              ]
+            },
+            "items": [
+              {
+                "title": "E-commerce Revolution",
+                "description": "Complete brand and platform transformation for a leading fashion retailer",
+                "category": "Web Design",
+                "tags": ["E-commerce", "UX/UI", "Branding"],
+                "image": "https://example.com/project-1.jpg",
+                "badges": [{ "text": "Featured", "variant": "primary" }],
+                "link": "/work/ecommerce-revolution",
+                "date": "2024"
+              },
+              {
+                "title": "Mobile Banking App",
+                "description": "Next-generation banking experience for digital natives",
+                "category": "Mobile",
+                "tags": ["Fintech", "Mobile App", "UX"],
+                "image": "https://example.com/project-2.jpg",
+                "badges": [{ "text": "Award Winner", "variant": "success" }],
+                "link": "/work/mobile-banking",
+                "date": "2024"
+              },
+              {
+                "title": "Brand Identity Refresh",
+                "description": "Modern rebrand for a heritage technology company",
+                "category": "Branding",
+                "tags": ["Brand Strategy", "Visual Identity", "Guidelines"],
+                "image": "https://example.com/project-3.jpg",
+                "link": "/work/brand-refresh",
+                "date": "2023"
+              }
+            ]
+          }
+        },
+        {
+          "type": "stats",
+          "content": {
+            "title": "Delivering Excellence",
+            "layout": "grid",
+            "columns": 4,
+            "background": "gradient",
+            "stats": [
+              {
+                "label": "Projects Delivered",
+                "value": "150",
+                "suffix": "+",
+                "icon": "briefcase",
+                "trend": {
+                  "value": 25,
+                  "direction": "up",
+                  "label": "this year"
+                }
+              },
+              {
+                "label": "Happy Clients",
+                "value": "100",
+                "suffix": "+",
+                "icon": "smile",
+                "trend": {
+                  "value": 15,
+                  "direction": "up",
+                  "label": "this year"
+                }
+              },
+              {
+                "label": "Awards Won",
+                "value": "25",
+                "suffix": "+",
+                "icon": "award"
+              },
+              {
+                "label": "Team Members",
+                "value": "40",
+                "suffix": "+",
+                "icon": "users"
+              }
+            ]
+          }
+        },
+        {
+          "type": "team",
+          "content": {
+            "title": "Meet Our Team",
+            "subtitle": "The creative minds behind the magic",
+            "layout": "grid",
+            "columns": 4,
+            "style": "card",
+            "members": [
+              {
+                "name": "Alex Rivera",
+                "role": "Creative Director",
+                "department": "Leadership",
+                "avatar": "https://example.com/team-1.jpg",
+                "bio": "Visionary leader with 15+ years of experience in digital design",
+                "featured": true,
+                "social": [
+                  {
+                    "platform": "linkedin",
+                    "url": "https://linkedin.com/in/alexrivera"
+                  },
+                  {
+                    "platform": "twitter",
+                    "url": "https://twitter.com/alexrivera"
+                  }
+                ]
+              },
+              {
+                "name": "Jordan Lee",
+                "role": "Lead Designer",
+                "department": "Design",
+                "avatar": "https://example.com/team-2.jpg",
+                "bio": "Crafting beautiful interfaces that users love",
+                "social": [
+                  {
+                    "platform": "dribbble",
+                    "url": "https://dribbble.com/jordanlee"
+                  },
+                  {
+                    "platform": "behance",
+                    "url": "https://behance.net/jordanlee"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "testimonials",
+          "content": {
+            "title": "What Clients Say",
+            "subtitle": "Don't just take our word for it",
+            "layout": "carousel",
+            "style": "quote",
+            "background": "colored",
+            "testimonials": [
+              {
+                "name": "Sarah Johnson",
+                "role": "CEO",
+                "company": "TechCorp",
+                "companyLogo": "https://example.com/techcorp.svg",
+                "avatar": "https://example.com/client-1.jpg",
+                "content": "Creative Studio transformed our brand completely. The results exceeded all expectations. Their attention to detail and creative vision is unmatched.",
+                "rating": 5,
+                "featured": true,
+                "project": "E-commerce Revolution"
+              },
+              {
+                "name": "Michael Chen",
+                "role": "Product Director",
+                "company": "FinanceApp",
+                "companyLogo": "https://example.com/financeapp.svg",
+                "avatar": "https://example.com/client-2.jpg",
+                "content": "Working with Creative Studio was a game-changer for our mobile app. They understood our vision and brought it to life beautifully.",
+                "rating": 5,
+                "project": "Mobile Banking App"
+              }
+            ]
+          }
+        },
+        {
+          "type": "process",
+          "content": {
+            "title": "Our Process",
+            "subtitle": "How we bring your vision to life",
+            "layout": "horizontal",
+            "style": "detailed",
+            "steps": [
+              {
+                "number": 1,
+                "title": "Discovery",
+                "description": "We start by understanding your goals, challenges, and target audience",
+                "icon": "compass",
+                "duration": "1-2 weeks"
+              },
+              {
+                "number": 2,
+                "title": "Strategy",
+                "description": "Develop a comprehensive strategy aligned with your business objectives",
+                "icon": "target",
+                "duration": "2-3 weeks"
+              },
+              {
+                "number": 3,
+                "title": "Design",
+                "description": "Create stunning visuals and user experiences that engage and convert",
+                "icon": "palette",
+                "duration": "3-4 weeks"
+              },
+              {
+                "number": 4,
+                "title": "Development",
+                "description": "Build robust, scalable solutions using cutting-edge technologies",
+                "icon": "code",
+                "duration": "4-8 weeks"
+              },
+              {
+                "number": 5,
+                "title": "Launch",
+                "description": "Deploy your project with comprehensive testing and ongoing support",
+                "icon": "rocket",
+                "duration": "1-2 weeks"
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta",
+          "content": {
+            "title": "Let's Create Something Amazing Together",
+            "subtitle": "Ready to transform your brand?",
+            "description": "Get in touch to discuss your project and see how we can help",
+            "layout": "centered",
+            "background": "gradient",
+            "primaryCta": {
+              "text": "Start Your Project",
+              "href": "/contact",
+              "variant": "primary",
+              "icon": "arrow-right",
+              "size": "large"
+            },
+            "secondaryCta": {
+              "text": "View Our Work",
+              "href": "/work",
+              "variant": "outline"
+            },
+            "features": [
+              { "text": "Free consultation", "icon": "check" },
+              { "text": "Custom proposal", "icon": "check" },
+              { "text": "Flexible pricing", "icon": "check" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
