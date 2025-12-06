@@ -18,22 +18,78 @@ import {
 const useStyles = makeStyles(theme => ({
   tableContainer: {
     maxHeight: 600,
+    border: `2px solid ${theme.palette.divider}`,
+    borderRadius: theme.spacing(2),
+    overflow: 'auto',
+    boxShadow: theme.palette.type === 'dark'
+      ? '0 4px 12px rgba(0, 0, 0, 0.5)'
+      : '0 4px 12px rgba(0, 0, 0, 0.06)',
+    backgroundColor: theme.palette.background.paper,
+    '&::-webkit-scrollbar': {
+      width: 12,
+      height: 12,
+    },
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: theme.palette.action.hover,
+      borderRadius: 6,
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: theme.palette.action.selected,
+      borderRadius: 6,
+      border: `2px solid ${theme.palette.background.paper}`,
+      '&:hover': {
+        backgroundColor: theme.palette.action.disabled,
+      },
+    },
   },
   headerCell: {
-    fontWeight: 'bold',
-    backgroundColor: theme.palette.background.default,
+    fontWeight: 700,
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
     position: 'sticky',
     top: 0,
     zIndex: 10,
+    borderBottom: `3px solid ${theme.palette.primary.dark}`,
+    fontSize: '0.95rem',
+    whiteSpace: 'nowrap',
+    minWidth: 120,
   },
   filterBox: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+    '& .MuiOutlinedInput-root': {
+      borderRadius: theme.spacing(2),
+      backgroundColor: theme.palette.background.paper,
+    },
   },
   truncatedCell: {
-    maxWidth: 200,
+    maxWidth: 300,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    cursor: 'help',
+  },
+  tableRow: {
+    backgroundColor: theme.palette.background.paper,
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+      cursor: 'pointer',
+    },
+    '&:nth-of-type(even)': {
+      backgroundColor: theme.palette.action.selected,
+    },
+  },
+  tableCell: {
+    padding: theme.spacing(2),
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    minWidth: 100,
+  },
+  paginationContainer: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'flex-end',
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: theme.spacing(2),
+    border: `1px solid ${theme.palette.divider}`,
   },
 }));
 
@@ -115,20 +171,23 @@ export const DataTable: React.FC<DataTableProps> = ({ headers, rows }) => {
       <Box className={classes.filterBox}>
         <TextField
           fullWidth
-          label="Filter data"
+          label="Search Data"
           variant="outlined"
-          size="small"
+          size="medium"
           value={filter}
           onChange={e => {
             setFilter(e.target.value);
             setPage(0);
           }}
-          placeholder="Search across all columns..."
+          placeholder="Type to search across all columns..."
+          InputProps={{
+            startAdornment: <Box mr={1}>🔍</Box>,
+          }}
         />
       </Box>
 
-      <TableContainer component={Paper} className={classes.tableContainer}>
-        <Table stickyHeader size="small">
+      <TableContainer component={Paper} className={classes.tableContainer} elevation={0}>
+        <Table stickyHeader size="medium">
           <TableHead>
             <TableRow>
               {headers.map((header, index) => (
@@ -137,6 +196,7 @@ export const DataTable: React.FC<DataTableProps> = ({ headers, rows }) => {
                     active={orderBy === index}
                     direction={orderBy === index ? order : 'asc'}
                     onClick={() => handleSort(index)}
+                    style={{ color: 'inherit' }}
                   >
                     {header}
                   </TableSortLabel>
@@ -146,15 +206,15 @@ export const DataTable: React.FC<DataTableProps> = ({ headers, rows }) => {
           </TableHead>
           <TableBody>
             {paginatedRows.map((row, rowIndex) => (
-              <TableRow key={rowIndex} hover>
+              <TableRow key={rowIndex} className={classes.tableRow}>
                 {row.map((cell, cellIndex) => {
                   const cellContent = String(cell || '');
-                  const isTruncated = cellContent.length > 50;
+                  const isTruncated = cellContent.length > 80;
                   
                   return (
-                    <TableCell key={cellIndex}>
+                    <TableCell key={cellIndex} className={classes.tableCell}>
                       {isTruncated ? (
-                        <Tooltip title={cellContent} arrow>
+                        <Tooltip title={cellContent} arrow placement="top" interactive>
                           <div className={classes.truncatedCell}>
                             {cellContent}
                           </div>
@@ -171,15 +231,17 @@ export const DataTable: React.FC<DataTableProps> = ({ headers, rows }) => {
         </Table>
       </TableContainer>
 
-      <TablePagination
-        rowsPerPageOptions={[25, 50, 100]}
-        component="div"
-        count={filteredAndSortedRows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <Box className={classes.paginationContainer}>
+        <TablePagination
+          rowsPerPageOptions={[25, 50, 100, 200]}
+          component="div"
+          count={filteredAndSortedRows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Box>
     </Box>
   );
 };

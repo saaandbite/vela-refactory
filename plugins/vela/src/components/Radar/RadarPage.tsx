@@ -1,8 +1,10 @@
 import React from 'react';
-import { Header, Page, Content, ContentHeader, SupportButton, TabbedLayout } from '@backstage/core-components';
+import { Header, Page, Content, SupportButton, TabbedLayout } from '@backstage/core-components';
 import { UrlInput } from './WebToSpec/UrlInput';
 import { AnalysisCharts } from './Dashboard/AnalysisCharts';
 import { CSVAnalyzer } from './CSVAnalyzer';
+import { OpenSpecPage } from './OpenSpec';
+import { WebContentAnalyzer } from './WebContentAnalyzer/WebContentAnalyzer';
 
 export const RadarPage = () => {
     return (
@@ -10,26 +12,19 @@ export const RadarPage = () => {
             <Header title="VELA Radar" subtitle="Data Intelligence & Scraping Module">
                 <SupportButton>Analyze external data for specs</SupportButton>
             </Header>
-            <Content>
+            <Content noPadding>
                 <TabbedLayout>
-                    <TabbedLayout.Route path="/" title="Web-to-Spec">
-                        <div>
-                            <ContentHeader title="Scrape Website">
-                                <SupportButton>Enter a URL to extract spec context</SupportButton>
-                            </ContentHeader>
-                            <UrlInput />
-                        </div>
+                    <TabbedLayout.Route path="/" title="Web Content Analyzer">
+                        <WebContentAnalyzer />
                     </TabbedLayout.Route>
                     <TabbedLayout.Route path="/csv-analyzer" title="CSV Analyzer">
                         <CSVAnalyzer />
                     </TabbedLayout.Route>
                     <TabbedLayout.Route path="/dashboard" title="Data Dashboard">
-                        <div>
-                            <ContentHeader title="Data Analysis">
-                                <SupportButton>Analysis Results</SupportButton>
-                            </ContentHeader>
-                            <AnalysisCharts />
-                        </div>
+                        <AnalysisCharts />
+                    </TabbedLayout.Route>
+                    <TabbedLayout.Route path="/openspec" title="OpenSpec Generator">
+                        <OpenSpecPage />
                     </TabbedLayout.Route>
                 </TabbedLayout>
             </Content>

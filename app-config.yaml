@@ -9,9 +9,9 @@ backend:
   # Used for enabling authentication, secret is shared by all backend plugins
   # See https://backstage.io/docs/auth/service-to-service-auth for
   # information on the format
-  # auth:
-  #   keys:
-  #     - secret: ${BACKEND_SECRET}
+  auth:
+    # Disable default auth policy for development
+    dangerouslyDisableDefaultAuthPolicy: true
   baseUrl: http://localhost:7007
   listen:
     port: 7007
@@ -66,7 +66,14 @@ auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   providers:
     # See https://backstage.io/docs/auth/guest/provider
-    guest: {}
+    guest:
+      dangerouslyAllowOutsideDevelopment: true
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+        ## Uncomment if using GitHub Enterprise
+        # enterpriseInstanceUrl: ${AUTH_GITHUB_ENTERPRISE_INSTANCE_URL}
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -111,3 +118,10 @@ kubernetes:
 permission:
   # setting this to `false` will disable permissions
   enabled: true
+
+# VELA Platform Configuration
+vela:
+  openrouter:
+    apiKey: ${OPENROUTER_API_KEY}
+  jina:
+    apiKey: ${JINA_API_KEY}

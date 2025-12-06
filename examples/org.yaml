@@ -5,7 +5,54 @@ kind: User
 metadata:
   name: guest
 spec:
+  profile:
+    displayName: Guest User
+    email: guest@example.com
   memberOf: [guests]
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: maulana-tech
+spec:
+  profile:
+    displayName: Maulana Tech
+    email: maulana@example.com
+  memberOf: [guests, developers]
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: saaandbite
+spec:
+  profile:
+    displayName: Saaandbite
+    email: saaandbite@example.com
+  memberOf: [guests, developers]
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: akbarwjyy
+spec:
+  profile:
+    displayName: Akbar Wijaya
+    email: akbarwjyy@example.com
+  memberOf: [developers, contributors]
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: catursetyono
+spec:
+  profile:
+    displayName: Catur Setyono
+    email: catursetyono@example.com
+  memberOf: [developers, contributors]
 ---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-group
 apiVersion: backstage.io/v1alpha1
@@ -14,4 +61,29 @@ metadata:
   name: guests
 spec:
   type: team
+  profile:
+    displayName: Guests
+  children: []
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-group
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: developers
+spec:
+  type: team
+  profile:
+    displayName: Developers
+  children: []
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-group
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: contributors
+spec:
+  type: team
+  profile:
+    displayName: Contributors
+    description: External contributors to the VELA platform
   children: []
