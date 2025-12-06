@@ -6,6 +6,7 @@ import Router from 'express-promise-router';
 import { ApiSpecGenerator } from './service/ApiSpecGenerator';
 import { ComponentSchemas } from './service/ComponentSchemas';
 import { AIGenerator } from './service/AIGenerator';
+import { FormatConverter } from './utils/formatConverter';
 
 export async function createRouter({
   httpAuth,
@@ -59,7 +60,11 @@ export async function createRouter({
     await httpAuth.credentials(req, { allow: ['user'] });
 
     const result = await apiSpecGenerator.generateSiteConfig(input);
-    res.json(result);
+    const formatted = FormatConverter.createDownloadableResponse(
+      result,
+      'site-config',
+    );
+    res.json(formatted);
   });
 
   // Generate page configuration
@@ -75,7 +80,11 @@ export async function createRouter({
       description,
       sections,
     });
-    res.json(result);
+    const formatted = FormatConverter.createDownloadableResponse(
+      result,
+      'page-config',
+    );
+    res.json(formatted);
   });
 
   // Generate component by type
@@ -88,7 +97,11 @@ export async function createRouter({
     }
 
     const result = apiSpecGenerator.generateComponent(type, content);
-    res.json(result);
+    const formatted = FormatConverter.createDownloadableResponse(
+      result,
+      `${type}-component`,
+    );
+    res.json(formatted);
   });
 
   // Validate site configuration
@@ -139,7 +152,11 @@ export async function createRouter({
         targetAudience,
         style,
       });
-      res.json(result);
+      const formatted = FormatConverter.createDownloadableResponse(
+        result,
+        'ai-site-config',
+      );
+      res.json(formatted);
     } catch (error) {
       res.status(500).json({
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -167,7 +184,11 @@ export async function createRouter({
         description,
         purpose,
       });
-      res.json(result);
+      const formatted = FormatConverter.createDownloadableResponse(
+        result,
+        'ai-page-config',
+      );
+      res.json(formatted);
     } catch (error) {
       res.status(500).json({
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -192,7 +213,11 @@ export async function createRouter({
         context,
         content,
       });
-      res.json(result);
+      const formatted = FormatConverter.createDownloadableResponse(
+        result,
+        `ai-${type}-component`,
+      );
+      res.json(formatted);
     } catch (error) {
       res.status(500).json({
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -220,7 +245,11 @@ export async function createRouter({
         component,
         instructions,
       );
-      res.json(result);
+      const formatted = FormatConverter.createDownloadableResponse(
+        result,
+        'ai-enhanced-component',
+      );
+      res.json(formatted);
     } catch (error) {
       res.status(500).json({
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -243,7 +272,11 @@ export async function createRouter({
       }
 
       const result = await aiGenerator.generateFromPrompt(prompt);
-      res.json(result);
+      const formatted = FormatConverter.createDownloadableResponse(
+        result,
+        'ai-generated',
+      );
+      res.json(formatted);
     } catch (error) {
       res.status(500).json({
         error: error instanceof Error ? error.message : 'Unknown error',

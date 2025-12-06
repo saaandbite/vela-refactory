@@ -42,7 +42,8 @@ async function testEndpoint(
     const responseTime = Date.now() - startTime;
 
     if (response.ok) {
-      const data = await response.json();
+      // Consume response body to avoid memory leaks
+      await response.text();
       results.push({
         endpoint: description || endpoint,
         method,
