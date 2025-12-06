@@ -40,8 +40,8 @@ metadata:
 spec:
   profile:
     displayName: Akbar Wijaya
-    email: wijayaakbar@gmail.com
-  memberOf: [developers, contributors]
+    email: wijayakbarr@gmail.com
+  memberOf: [guests, developers]
 ---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user
 apiVersion: backstage.io/v1alpha1
