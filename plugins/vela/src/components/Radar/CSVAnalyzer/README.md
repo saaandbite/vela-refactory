@@ -59,6 +59,9 @@ A powerful, production-ready React component for analyzing CSV data using advanc
   - Hover animations
   - Responsive grid (1/2/3 columns on mobile/tablet/desktop)
 
+### 📄 PDF Export
+- **One-click PDF report** with data summary, sentiment/topic analysis, and data preview
+
 ### ⚡ Performance & Optimization
 - **Web Worker** - Background thread for parsing large CSV files
 - **Smart Caching** - In-memory cache with 1-hour TTL
