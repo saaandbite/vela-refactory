@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backstage-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backstage
+  template:
+    metadata:
+      labels:
+        app: backstage
+    spec:
+      containers:
+        - name: backstage
+          image: saaandd/backstage:1.0.0
+          # PENTING: Gunakan 'Never' atau 'IfNotPresent'
+          # agar k8s TIDAK mencoba download dari Docker Hub (internet).
+          imagePullPolicy: Never 
+          ports:
+            - containerPort: 7007 # Port standar Backstage
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backstage-service
+spec:
+  selector:
+    app: backstage
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7007
+  type: ClusterIP
