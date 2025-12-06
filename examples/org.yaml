@@ -18,7 +18,7 @@ metadata:
 spec:
   profile:
     displayName: Maulana Tech
-    email: maulana@example.com
+    email: firdaussyah03@gmail.com
   memberOf: [guests, developers]
 ---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user
@@ -40,7 +40,7 @@ metadata:
 spec:
   profile:
     displayName: Akbar Wijaya
-    email: akbarwjyy@example.com
+    email: wijayaakbar@gmail.com
   memberOf: [developers, contributors]
 ---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user

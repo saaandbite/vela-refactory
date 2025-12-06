@@ -13,31 +13,59 @@ import { CSVData } from '../types';
 
 const useStyles = makeStyles(theme => ({
   uploadArea: {
-    padding: theme.spacing(4),
+    padding: theme.spacing(8),
     textAlign: 'center',
-    border: `2px dashed ${theme.palette.divider}`,
-    borderRadius: theme.spacing(1),
+    border: `3px dashed ${theme.palette.divider}`,
+    borderRadius: theme.spacing(3),
     cursor: 'pointer',
-    transition: 'all 0.3s ease',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    backgroundColor: theme.palette.background.paper,
+    position: 'relative',
+    overflow: 'hidden',
     '&:hover': {
       borderColor: theme.palette.primary.main,
       backgroundColor: theme.palette.action.hover,
+      transform: 'scale(1.01)',
+      boxShadow: theme.palette.type === 'dark'
+        ? '0 8px 24px rgba(0, 0, 0, 0.5)'
+        : '0 8px 24px rgba(0, 0, 0, 0.15)',
     },
     '&.dragover': {
       borderColor: theme.palette.primary.main,
       backgroundColor: theme.palette.action.selected,
+      borderStyle: 'solid',
+      transform: 'scale(1.02)',
     },
   },
   uploadIcon: {
-    fontSize: 64,
+    fontSize: 80,
     color: theme.palette.primary.main,
     marginBottom: theme.spacing(2),
+    animation: '$float 3s ease-in-out infinite',
+  },
+  '@keyframes float': {
+    '0%, 100%': { transform: 'translateY(0)' },
+    '50%': { transform: 'translateY(-10px)' },
   },
   fileInfo: {
+    marginTop: theme.spacing(3),
+    padding: theme.spacing(2.5),
+    backgroundColor: theme.palette.type === 'dark'
+      ? 'rgba(76, 175, 80, 0.15)'
+      : 'rgba(76, 175, 80, 0.1)',
+    borderRadius: theme.spacing(2),
+    border: `2px solid ${theme.palette.success.main}`,
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(2),
+  },
+  uploadButton: {
     marginTop: theme.spacing(2),
-    padding: theme.spacing(2),
-    backgroundColor: theme.palette.background.default,
-    borderRadius: theme.spacing(1),
+    padding: theme.spacing(1.5, 4),
+    borderRadius: theme.spacing(3),
+    fontWeight: 600,
+    textTransform: 'none',
+    fontSize: '1rem',
   },
 }));
 
@@ -170,23 +198,28 @@ export const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, onError 
           onChange={handleFileSelect}
           disabled={loading}
         />
-        <label htmlFor="csv-upload" style={{ cursor: 'pointer' }}>
+        <label htmlFor="csv-upload" style={{ cursor: 'pointer', display: 'block' }}>
           <CloudUpload className={classes.uploadIcon} />
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h5" gutterBottom style={{ fontWeight: 600 }}>
             Upload CSV File
           </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Drag and drop or click to select (max 10MB)
+          <Typography variant="body1" color="textSecondary" style={{ marginTop: 8 }}>
+            Drag and drop your file here
           </Typography>
-          <Box mt={2}>
+          <Typography variant="caption" color="textSecondary">
+            or click to browse (max 10MB)
+          </Typography>
+          <Box mt={3}>
             <Button
               variant="contained"
               color="primary"
               component="span"
               disabled={loading}
               startIcon={<Description />}
+              className={classes.uploadButton}
+              size="large"
             >
-              Select File
+              Browse Files
             </Button>
           </Box>
         </label>
@@ -202,10 +235,16 @@ export const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, onError 
       )}
 
       {fileName && !loading && (
-        <Paper className={classes.fileInfo}>
-          <Typography variant="body2">
-            <strong>File:</strong> {fileName}
-          </Typography>
+        <Paper className={classes.fileInfo} elevation={0}>
+          <Description color="primary" style={{ fontSize: 32 }} />
+          <Box flex={1}>
+            <Typography variant="body1" style={{ fontWeight: 600 }}>
+              {fileName}
+            </Typography>
+            <Typography variant="caption" color="textSecondary">
+              Ready for analysis
+            </Typography>
+          </Box>
         </Paper>
       )}
     </Box>
