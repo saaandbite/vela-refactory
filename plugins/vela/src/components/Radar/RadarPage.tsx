@@ -2,6 +2,7 @@ import React from 'react';
 import { Header, Page, Content, ContentHeader, SupportButton, TabbedLayout } from '@backstage/core-components';
 import { UrlInput } from './WebToSpec/UrlInput';
 import { AnalysisCharts } from './Dashboard/AnalysisCharts';
+import { CSVAnalyzer } from './CSVAnalyzer';
 
 export const RadarPage = () => {
     return (
@@ -18,6 +19,9 @@ export const RadarPage = () => {
                             </ContentHeader>
                             <UrlInput />
                         </div>
+                    </TabbedLayout.Route>
+                    <TabbedLayout.Route path="/csv-analyzer" title="CSV Analyzer">
+                        <CSVAnalyzer />
                     </TabbedLayout.Route>
                     <TabbedLayout.Route path="/dashboard" title="Data Dashboard">
                         <div>
