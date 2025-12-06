@@ -2,7 +2,7 @@
 
 ## Overview
 
-CSV Analyzer adalah fitur baru di VELA Radar yang memungkinkan analisis data CSV menggunakan AI (Google Gemini) untuk sentiment analysis dan topic clustering.
+CSV Analyzer adalah fitur di VELA Radar yang memungkinkan analisis data CSV menggunakan AI (OpenRouter dengan Amazon Nova, Kat Coder Pro, Nemotron) untuk sentiment analysis dan topic clustering. Fitur ini terintegrasi dengan Jina AI untuk enrichment data dari URL.
 
 ## Fitur Utama
 
@@ -42,12 +42,15 @@ yarn workspace @internal/backstage-plugin-vela add papaparse @types/papaparse
 ```
 
 ### 2. Konfigurasi API Key
-Tambahkan Gemini API key ke file `.env`:
+Tambahkan OpenRouter dan Jina API keys ke file `.env`:
 ```bash
-REACT_APP_GEMINI_API_KEY=your_api_key_here
+OPENROUTER_API_KEY=sk-or-v1-your_key_here
+JINA_API_KEY=jina_your_key_here
 ```
 
-Dapatkan API key dari: https://makersuite.google.com/app/apikey
+Dapatkan API keys dari:
+- OpenRouter: https://openrouter.ai/keys
+- Jina AI: https://jina.ai/
 
 ### 3. Restart Server
 ```bash
@@ -71,11 +74,15 @@ yarn start
 3. Data akan ditampilkan di tabel
 
 ### Step 3: Analisis Data
-1. **Pilih Text Column**: Kolom yang berisi text untuk dianalisis
-2. **Set Sample Size**: Jumlah rows (default: 50)
-3. **Klik Analyze Sentiment**: Untuk sentiment analysis
-4. **Klik Analyze Topics**: Untuk topic clustering
-5. Tunggu 5-10 detik untuk hasil
+1. **Pilih AI Model**: 
+   - Amazon Nova Lite (Fast) - Default
+   - Kat Coder Pro (Accurate)
+   - Nemotron Nano (Balanced)
+2. **Pilih Text Column**: Kolom yang berisi text untuk dianalisis (auto-select untuk kolom feedback/review/comment)
+3. **Set Sample Size**: Jumlah rows (default: 50, max: 500)
+4. **Klik Analyze Sentiment**: Untuk sentiment analysis
+5. **Klik Analyze Topics**: Untuk topic clustering
+6. Tunggu beberapa detik untuk hasil (batching otomatis untuk dataset besar)
 
 ### Step 4: Lihat Hasil
 - **Pie Chart**: Muncul di atas tabel
@@ -164,34 +171,49 @@ CSVAnalyzer/
 
 ## API Integration
 
-### Gemini API Endpoints
-- **Model**: gemini-pro
-- **Endpoint**: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent
-- **Rate Limit**: 10 requests/minute
+### OpenRouter API
+- **Models**: 
+  - `amazon/nova-2-lite-v1:free` (Fast, recommended)
+  - `kwaipilot/kat-coder-pro:free` (Accurate)
+  - `nvidia/nemotron-nano-12b-v2-vl:free` (Balanced)
+- **Endpoint**: https://openrouter.ai/api/v1/chat/completions
+- **Rate Limit**: 10 requests/minute (frontend rate limiter)
 - **Retry**: 3x dengan exponential backoff
+- **Batching**: Otomatis batch 20 texts untuk dataset besar
+
+### Jina AI Integration
+- **Reader API**: https://r.jina.ai/
+- **Purpose**: Enrich URL content dalam CSV
+- **Auto-detection**: Otomatis detect dan enrich URL dalam text
 
 ### Request Format
 ```typescript
 {
-  contents: [{
-    parts: [{
-      text: "Analyze sentiment: [texts...]"
-    }]
-  }]
+  texts: string[],
+  model: string // e.g., "amazon/nova-2-lite-v1:free"
 }
 ```
 
-### Response Format
+### Response Format (Sentiment)
 ```typescript
-{
-  candidates: [{
-    content: {
-      parts: [{
-        text: '[{"text":"...", "sentiment":"positive", "score":0.9}]'
-      }]
-    }
-  }]
-}
+[
+  {
+    text: "original text snippet",
+    sentiment: "positive" | "negative" | "neutral",
+    score: 0.95 // confidence 0-1
+  }
+]
+```
+
+### Response Format (Topics)
+```typescript
+[
+  {
+    name: "Topic Name",
+    keywords: ["keyword1", "keyword2", "keyword3"],
+    count: 15 // number of texts related to this topic
+  }
+]
 ```
 
 ## Best Practices
@@ -214,16 +236,28 @@ CSVAnalyzer/
 - Respect rate limits
 - Optimize sample size
 
+## Current Features ✅
+
+- [x] Export hasil analysis ke PDF
+- [x] Sentiment analysis dengan 3 kategori (positive/negative/neutral)
+- [x] Topic clustering dengan keywords
+- [x] Auto-select text columns
+- [x] Batching untuk dataset besar
+- [x] Comprehensive error handling dan logging
+- [x] Cache disabled untuk prevent bias
+- [x] Multi-language support (Indonesian, English, etc.)
+- [x] URL enrichment dengan Jina AI
+
 ## Future Enhancements
 
-- [ ] Export hasil analysis ke CSV/JSON
 - [ ] Multiple file upload
 - [ ] Custom sentiment categories
-- [ ] Advanced topic modeling
+- [ ] Advanced topic modeling dengan ML
 - [ ] Real-time streaming analysis
 - [ ] Integration dengan database
 - [ ] Scheduled analysis jobs
 - [ ] Email notifications
+- [ ] Export ke Excel dengan formatting
 
 ## Support
 
