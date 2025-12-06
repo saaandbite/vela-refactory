@@ -43,6 +43,17 @@ spec:
     email: wijayakbarr@gmail.com
   memberOf: [guests, developers]
 ---
+# Alternative name for Akbar if GitHub username is different
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: akbar-wijaya
+spec:
+  profile:
+    displayName: Akbar Wijaya (Alt)
+    email: wijayaakbar@gmail.com
+  memberOf: [developers, contributors]
+---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user
 apiVersion: backstage.io/v1alpha1
 kind: User
@@ -52,6 +63,17 @@ spec:
   profile:
     displayName: Catur Setyono
     email: catursetyono@example.com
+  memberOf: [developers, contributors]
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: lana-techn
+spec:
+  profile:
+    displayName: Lana Tech
+    email: developerlana0@gmail.com
   memberOf: [developers, contributors]
 ---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-group
