@@ -1,4 +1,4 @@
- # VELA Backstage Platform
+# VELA Backstage Platform
 
 **Domain:** [https://vibecode.hackathon.sev-2.com](https://vibecode.hackathon.sev-2.com)
 
@@ -20,13 +20,45 @@ Located at `/vela`, this module provides powerful data analysis capabilities:
 
 ### 2. VELA API Spec (SDUI Generator)
 
-Located at `/vela-api-spec`, this module facilitates the creation of Server-Driven UI specifications:
+Located at `/vela-api-spec`, this module is the core of the "Text-to-Website" workflow. It allows users to generate full website configurations using AI and deploy them instantly.
 
-- **AI-Powered Generation**: Generate complete site configurations and pages from natural language prompts using AI.
-- **Component Schemas**: Provides JSON schemas for various UI components (Hero, Features, Grid, Stats, etc.).
-- **GitHub Integration**: Save and manage generated configurations directly in GitHub repositories.
-- **Validation**: Real-time validation of configurations against schemas.
-- **Templates**: Pre-built templates for common site types.
+- **AI-Powered Generation**: Transform natural language prompts into complete JSON site configurations.
+- **Automated Git Ops**: Seamlessly pushes generated configurations to a connected GitHub repository.
+- **Instant Deployment**: Triggers automated deployments (e.g., Vercel) upon saving.
+
+## 🔄 Workflow: From AI Prompt to Live Website
+
+This platform features a complete end-to-end flow that automates the creation and deployment of websites. Here is the step-by-step process:
+
+### 1. Setup & Configuration
+
+To enable the automated deployment flow, the system requires a GitHub Token with write access to the target repository.
+
+- **Target Repository**: [https://github.com/CaturSetyono/templates.git](https://github.com/CaturSetyono/templates.git)
+- **Live Deployment**: [https://templates-two-beta.vercel.app/](https://templates-two-beta.vercel.app/)
+
+### 2. The Process Flow
+
+1.  **Generate (AI)**:
+
+    - User navigates to the **VELA API Spec** plugin.
+    - Enters a natural language prompt (e.g., _"Create a modern landing page for a SaaS startup"_).
+    - The AI generates a complete JSON configuration adhering to the SDUI schema.
+
+2.  **Review & Edit**:
+
+    - User reviews the generated configuration in the built-in JSON editor.
+    - Real-time validation ensures the config matches the component schemas.
+
+3.  **Save & Push (Automated)**:
+
+    - User clicks the **"Save to GitHub"** button.
+    - The backend uses the configured `GITHUB_TOKEN` to automatically commit and push the new JSON config to the `CaturSetyono/templates` repository.
+
+4.  **Deploy (Vercel)**:
+    - Vercel detects the new commit in the repository.
+    - Automatically triggers a rebuild and deployment.
+    - The updated website is live at [https://templates-two-beta.vercel.app/](https://templates-two-beta.vercel.app/) within minutes.
 
 ## 🏗️ Project Structure
 
