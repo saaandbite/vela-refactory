@@ -1,152 +1,133 @@
-# VELA Backstage Platform
+ # VELA Backstage Platform
 
-Platform internal developer portal berbasis Backstage dengan fitur AI-powered data analysis.
+**Domain:** [https://vibecode.hackathon.sev-2.com](https://vibecode.hackathon.sev-2.com)
 
-## 🚀 Quick Start
+VELA is a comprehensive Internal Developer Portal (IDP) built on top of [Backstage](https://backstage.io). It integrates advanced AI capabilities, data analysis tools, and Server-Driven UI (SDUI) generation to streamline the development workflow.
 
-```sh
-yarn install
-yarn start
-```
+## 🌟 Key Features
 
-Aplikasi akan berjalan di:
-- Frontend: http://localhost:3000
-- Backend: http://localhost:7007
+### 1. VELA Radar (Data Intelligence)
 
-## ✨ Features
+Located at `/vela`, this module provides powerful data analysis capabilities:
 
-### VELA Radar - Data Intelligence Module
+- **Web-to-Spec Scraper**: Extracts structured data from websites using Jina Reader API for specification generation.
+- **CSV Analyzer (AI-Powered)**:
+  - **AI Analysis**: Uses Google Gemini to analyze CSV data.
+  - **Sentiment Analysis**: Classifies data into positive, negative, or neutral sentiments.
+  - **Topic Clustering**: Identifies key themes and topics within the data.
+  - **Interactive Dashboard**: Visualizes results with charts and metrics.
+  - **Smart Parsing**: Handles large files efficiently using Web Workers.
 
-#### 1. Web-to-Spec Scraper
-- Scrape website content menggunakan Jina Reader API
-- Extract structured data untuk spec generation
-- URL validation dan error handling
+### 2. VELA API Spec (SDUI Generator)
 
-#### 2. CSV Analyzer (NEW! 🎉)
-- **AI-Powered Analysis** dengan Google Gemini
-- **Sentiment Analysis** - Klasifikasi positive/negative/neutral
-- **Topic Clustering** - Identifikasi tema dan keywords
-- **Interactive UI** - Drag & drop upload, sort, filter, pagination
-- **Smart Parsing** - Web Worker untuk file besar (>1MB)
-- **Visualization** - Pie chart dengan Recharts
-- **Performance** - Caching (1h TTL) & rate limiting (10/min)
+Located at `/vela-api-spec`, this module facilitates the creation of Server-Driven UI specifications:
 
-#### 3. Data Dashboard
-- Visualisasi hasil analysis
-- Charts dan metrics
+- **AI-Powered Generation**: Generate complete site configurations and pages from natural language prompts using AI.
+- **Component Schemas**: Provides JSON schemas for various UI components (Hero, Features, Grid, Stats, etc.).
+- **GitHub Integration**: Save and manage generated configurations directly in GitHub repositories.
+- **Validation**: Real-time validation of configurations against schemas.
+- **Templates**: Pre-built templates for common site types.
 
-## 📊 CSV Analyzer Setup
+## 🏗️ Project Structure
 
-### 1. Install Dependencies
-```bash
-yarn workspace @internal/backstage-plugin-vela add papaparse @types/papaparse
-```
-
-### 2. Configure API Key
-Edit `.env` file:
-```bash
-REACT_APP_GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-Get free API key: https://makersuite.google.com/app/apikey
-
-### 3. Test with Sample Data
-```bash
-# Sample CSV tersedia di:
-examples/sample-data.csv
-```
-
-### 4. Usage
-1. Navigate to **VELA Radar** → **CSV Analyzer**
-2. Upload CSV file (max 10MB)
-3. Select text column to analyze
-4. Click **Analyze Sentiment** or **Analyze Topics**
-5. View results in pie chart and table
-
-## 📚 Documentation
-
-- [CSV Analyzer Guide](./AI-Agent/CSV-Analyzer.md) - Comprehensive documentation
-- [Quick Start Guide](./QUICK_START_CSV_ANALYZER.md) - Get started in 3 steps
-- [Jina Integration](./AI-Agent/Jina.md) - Web scraping setup
-- [Agents Overview](./AI-Agent/AGENTS.md) - AI agents documentation
-
-## 🛠️ Tech Stack
-
-- **Frontend**: React, Material-UI, Recharts
-- **Backend**: Node.js, Express
-- **Database**: PostgreSQL
-- **AI/ML**: Google Gemini API
-- **Parsing**: PapaParse
-- **Scraping**: Jina Reader API
-
-## 🔧 Troubleshooting
-
-### Port Already in Use
-```bash
-lsof -ti:7007 | xargs kill -9
-yarn start
-```
-
-### CSV Upload Issues
-- Max file size: 10MB
-- Supported format: .csv only
-- Encoding: UTF-8
-
-### API Key Issues
-- Ensure key starts with `REACT_APP_`
-- Restart server after editing `.env`
-- Check API quota at Google Cloud Console
-
-## 📦 Project Structure
+The project follows a standard Backstage monorepo structure with custom plugins:
 
 ```
-vela-backstages/
+vela-refactory/
 ├── packages/
-│   ├── app/              # Frontend application
-│   └── backend/          # Backend services
+│   ├── app/                 # Main frontend application
+│   └── backend/             # Main backend application
 ├── plugins/
-│   ├── vela/             # VELA Radar plugin
-│   │   └── src/
-│   │       └── components/
-│   │           └── Radar/
-│   │               ├── CSVAnalyzer/    # CSV analysis features
-│   │               ├── WebToSpec/      # Web scraping
-│   │               └── Dashboard/      # Data visualization
-│   └── vela-backend/     # Backend plugin
-├── examples/
-│   └── sample-data.csv   # Sample CSV for testing
-└── AI-Agent/             # Documentation
+│   ├── vela/                # Frontend for VELA Radar (Data Intelligence)
+│   ├── vela-backend/        # Backend for VELA Radar
+│   ├── vela-api-spec/       # Backend for API Spec Generator
+│   └── vela-api-spec-fe/    # Frontend for API Spec Generator
+├── kubernetes/              # K8s deployment configurations
+└── examples/                # Example data and templates
 ```
 
-## 🎯 Roadmap
+## 🚀 Getting Started
 
-- [x] CSV upload with drag & drop
-- [x] Sentiment analysis with AI
-- [x] Topic clustering
-- [x] Interactive data table
-- [x] Visualization with charts
-- [ ] Export analysis results
-- [ ] Multiple file upload
-- [ ] Real-time streaming analysis
-- [ ] Database integration
-- [ ] Scheduled analysis jobs
+### Prerequisites
 
-## 🤝 Contributing
+- Node.js (v20 or v22)
+- Yarn
+- Docker (for containerization)
+- Google Gemini API Key (for AI features)
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
+### Installation
 
-## 📄 License
+1.  **Clone the repository**
 
-Apache-2.0
+    ```bash
+    git clone <repository-url>
+    cd vela-refactory
+    ```
 
-## 🙏 Acknowledgments
+2.  **Install dependencies**
 
-- [Backstage](https://backstage.io) - Developer portal platform
-- [Google Gemini](https://ai.google.dev) - AI analysis
-- [PapaParse](https://www.papaparse.com) - CSV parsing
-- [Jina AI](https://jina.ai) - Web scraping
-- [Recharts](https://recharts.org) - Data visualization
+    ```bash
+    yarn install
+    ```
+
+3.  **Configure Environment Variables**
+    Create a `.env` file in the root directory (or configure in `app-config.local.yaml`):
+    ```bash
+    REACT_APP_GEMINI_API_KEY=your_gemini_api_key_here
+    GITHUB_TOKEN=your_github_token  # For GitHub integration features
+    ```
+
+### Running Locally
+
+Start both frontend and backend:
+
+```bash
+yarn start
+```
+
+- **Frontend**: http://localhost:3000
+- **Backend**: http://localhost:7007
+
+## 🛠️ Configuration
+
+### App Configuration
+
+The main configuration is handled in `app-config.yaml`. For local development, you can override settings in `app-config.local.yaml`.
+
+### Plugin Configuration
+
+- **Vela Radar**: Requires `REACT_APP_GEMINI_API_KEY` for AI analysis.
+- **Vela API Spec**: Requires GitHub authentication for saving configurations.
+
+## 📦 Deployment
+
+The project includes Kubernetes manifests in the `kubernetes/` directory for deployment.
+
+**Live Demo**: [https://vibecode.hackathon.sev-2.com](https://vibecode.hackathon.sev-2.com)
+
+### Build Docker Image
+
+```bash
+yarn build:backend
+yarn build-image
+```
+
+### Deploy to Kubernetes
+
+```bash
+kubectl apply -f kubernetes/
+```
+
+## 📚 API Documentation
+
+The backend exposes several API endpoints via the plugins:
+
+- **Vela API Spec**:
+  - `GET /api/vela-api-spec/health`: Health check
+  - `POST /api/vela-api-spec/generate/site-config`: Generate config from prompt
+  - `GET /api/vela-api-spec/schemas/components`: Get component schemas
+  - `GET /api/vela-api-spec/templates/site-config`: Get site config templates
+
+---
+
+Powered by [Backstage](https://backstage.io)
