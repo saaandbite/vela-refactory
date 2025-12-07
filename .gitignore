@@ -46,6 +46,7 @@ site
 # Sensitive credentials
 *-credentials.yaml
 
+
 # vscode database functionality support files
 *.session.sql
 
@@ -54,3 +55,7 @@ e2e-test-report/
 
 # Cache
 .cache/
+
+kubernetes
+*.kubeconfig
+*.secrets

@@ -99,7 +99,7 @@ export const SpecGeneratorControls: React.FC<SpecGeneratorControlsProps> = ({
         <InputLabel>AI Model</InputLabel>
         <Select
           value={selectedModel}
-          onChange={e => setSelectedModel(e.target.value)}
+          onChange={e => setSelectedModel(e.target.value as string)}
           label="AI Model"
           disabled={loading}
         >

@@ -1,4 +1,3 @@
-import React from 'react';
 import { InfoCard } from '@backstage/core-components';
 import { Box, Typography, Chip } from '@material-ui/core';
 import { useStyles } from './styles';

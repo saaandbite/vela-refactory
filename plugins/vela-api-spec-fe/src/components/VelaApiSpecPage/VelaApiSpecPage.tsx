@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Content, Header, Page } from '@backstage/core-components';
 import { Grid, Paper, Box } from '@material-ui/core';
 import { ServiceStatus } from './ServiceStatus';

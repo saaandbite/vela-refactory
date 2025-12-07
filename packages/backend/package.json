@@ -13,7 +13,10 @@
     "lint": "backstage-cli package lint",
     "test": "backstage-cli package test",
     "clean": "backstage-cli package clean",
-    "build-image": "docker build ../.. -f Dockerfile --tag backstage"
+    "build-image": "docker build ../.. -f Dockerfile --tag backstage",
+    "migrate": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback",
+    "migrate:status": "knex migrate:status"
   },
   "dependencies": {
     "@backstage/backend-defaults": "^0.13.1",
@@ -47,6 +50,8 @@
     "@internal/plugin-vela-backend": "workspace:^",
     "app": "link:../app",
     "better-sqlite3": "^12.0.0",
+    "dotenv": "^16.3.1",
+    "knex": "^3.1.0",
     "node-gyp": "^10.0.0",
     "pg": "^8.11.3"
   },

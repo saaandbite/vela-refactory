@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useApi } from '@backstage/core-plugin-api';
 import { velaApiRef, AnalysisResult } from '../../../api/VelaApi';
 import { Grid, Button, TextField, LinearProgress, Typography, Box } from '@material-ui/core';
