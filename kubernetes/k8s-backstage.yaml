@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backstage-deployment
-  namespace: backstage
+  namespace: vibecode
 spec:
   replicas: 1
   selector:
@@ -76,13 +76,35 @@ spec:
                 secretKeyRef:
                   name: backstage-secrets
                   key: JINA_API_KEY
+            
+            # Vela GitHub Integration from secrets
+            - name: VELA_GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: VELA_GITHUB_TOKEN
+            - name: VELA_GITHUB_OWNER
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: VELA_GITHUB_OWNER
+            - name: VELA_GITHUB_REPO
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: VELA_GITHUB_REPO
+            - name: VELA_GITHUB_BRANCH
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: VELA_GITHUB_BRANCH
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backstage-service
-  namespace: backstage
+  namespace: vibecode
 spec:
   selector:
     app: backstage
