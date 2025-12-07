@@ -402,7 +402,7 @@ export async function createRouter({
     }
 
     // Optional validation (skip by default for AI-generated configs)
-    let validation = { valid: true, errors: [], warnings: [] };
+    let validation: any = { valid: true, errors: [], warnings: [] };
     if (!skipValidation && skipValidation !== undefined) {
       validation = apiSpecGenerator.validateSiteConfig(siteConfig);
       if (!validation.valid) {
