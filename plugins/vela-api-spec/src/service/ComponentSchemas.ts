@@ -5,17 +5,20 @@ export class ComponentSchemas {
   getAllSchemas(): Record<string, any> {
     return {
       hero: this.getHeroSchema(),
+      'logo-cloud': this.getLogoCloudSchema(),
       features: this.getFeaturesSchema(),
-      grid: this.getGridSchema(),
       stats: this.getStatsSchema(),
-      team: this.getTeamSchema(),
       testimonials: this.getTestimonialsSchema(),
-      cta: this.getCtaSchema(),
-      contact: this.getContactSchema(),
       pricing: this.getPricingSchema(),
-      faq: this.getFaqSchema(),
-      blog: this.getBlogSchema(),
+      team: this.getTeamSchema(),
       gallery: this.getGallerySchema(),
+      content: this.getContentSchema(),
+      grid: this.getGridSchema(),
+      faq: this.getFaqSchema(),
+      cta: this.getCtaSchema(),
+      // Legacy schemas
+      contact: this.getContactSchema(),
+      blog: this.getBlogSchema(),
       process: this.getProcessSchema(),
       video: this.getVideoSchema(),
       partners: this.getPartnersSchema(),
@@ -33,66 +36,70 @@ export class ComponentSchemas {
   private getHeroSchema() {
     return {
       type: 'object',
-      required: ['title', 'cta'],
+      required: ['title'],
       properties: {
-        title: { type: 'string', description: 'Main hero title' },
-        subtitle: { type: 'string', description: 'Hero subtitle (optional)' },
-        description: {
-          type: 'string',
-          description: 'Hero description (optional)',
-        },
-        height: {
-          type: 'string',
-          enum: ['full', 'medium', 'small'],
-          default: 'full',
-        },
         alignment: {
           type: 'string',
           enum: ['left', 'center', 'right'],
           default: 'center',
+          description: 'Content alignment',
         },
-        backgroundImage: { type: 'string', format: 'uri' },
-        backgroundVideo: { type: 'string', format: 'uri' },
-        overlay: {
-          type: 'object',
-          properties: {
-            enabled: { type: 'boolean' },
-            color: { type: 'string' },
-            opacity: { type: 'number', minimum: 0, maximum: 1 },
-          },
+        title: { 
+          type: 'string', 
+          description: 'Main headline' 
+        },
+        subtitle: { 
+          type: 'string', 
+          description: 'Supporting text' 
         },
         cta: {
           type: 'object',
-          required: ['text', 'href'],
+          description: 'Call-to-action buttons',
           properties: {
-            text: { type: 'string' },
-            href: { type: 'string' },
-            variant: {
-              type: 'string',
-              enum: ['primary', 'secondary', 'outline'],
+            primary: {
+              type: 'object',
+              required: ['text', 'href'],
+              properties: {
+                text: { type: 'string', description: 'Button text' },
+                href: { type: 'string', description: 'Button URL' },
+              },
             },
-            icon: { type: 'string' },
+            secondary: {
+              type: 'object',
+              properties: {
+                text: { type: 'string', description: 'Button text' },
+                href: { type: 'string', description: 'Button URL' },
+              },
+            },
           },
         },
-        secondaryCta: {
+        image: {
           type: 'object',
+          description: 'Hero image',
           properties: {
-            text: { type: 'string' },
-            href: { type: 'string' },
-            variant: { type: 'string', enum: ['link', 'outline'] },
+            src: { type: 'string', format: 'uri', description: 'Image URL' },
+            alt: { type: 'string', description: 'Alt text for accessibility' },
           },
         },
       },
       example: {
         type: 'hero',
-        content: {
-          title: 'Welcome to Our Platform',
-          subtitle: 'Build amazing things',
-          cta: {
-            text: 'Get Started',
-            href: '/start',
-            variant: 'primary',
+        alignment: 'center',
+        title: 'Collaborate Smarter, Work Faster',
+        subtitle: 'CloudFlow brings your team together with powerful tools.',
+        cta: {
+          primary: {
+            text: 'Start Free Trial',
+            href: '/signup',
           },
+          secondary: {
+            text: 'Watch Demo',
+            href: '#demo',
+          },
+        },
+        image: {
+          src: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200',
+          alt: 'Team collaboration',
         },
       },
     };
@@ -101,31 +108,62 @@ export class ComponentSchemas {
   private getFeaturesSchema() {
     return {
       type: 'object',
-      required: ['title', 'features'],
+      required: ['items'],
       properties: {
-        title: { type: 'string' },
-        subtitle: { type: 'string' },
-        description: { type: 'string' },
         layout: {
           type: 'string',
-          enum: ['grid', 'list', 'carousel'],
+          enum: ['grid', 'alternate'],
           default: 'grid',
+          description: 'Display layout - grid or alternating left/right',
         },
-        columns: { type: 'number', minimum: 2, maximum: 4, default: 3 },
-        features: {
+        title: { 
+          type: 'string',
+          description: 'Section title'
+        },
+        subtitle: { 
+          type: 'string',
+          description: 'Section subtitle'
+        },
+        items: {
           type: 'array',
+          description: 'Feature list',
           items: {
             type: 'object',
             required: ['title', 'description'],
             properties: {
-              title: { type: 'string' },
-              description: { type: 'string' },
-              icon: { type: 'string' },
-              iconColor: { type: 'string' },
-              image: { type: 'string', format: 'uri' },
+              icon: { 
+                type: 'string',
+                description: 'Emoji or icon'
+              },
+              title: { 
+                type: 'string',
+                description: 'Feature name'
+              },
+              description: { 
+                type: 'string',
+                description: 'Feature description'
+              },
             },
           },
         },
+      },
+      example: {
+        type: 'features',
+        layout: 'grid',
+        title: 'Everything you need to succeed',
+        subtitle: 'Powerful features designed for modern teams',
+        items: [
+          {
+            icon: '🚀',
+            title: 'Lightning Fast',
+            description: 'Built for speed with cutting-edge technology.',
+          },
+          {
+            icon: '🔒',
+            title: 'Enterprise Security',
+            description: 'Bank-level encryption and compliance.',
+          },
+        ],
       },
     };
   }
@@ -133,31 +171,57 @@ export class ComponentSchemas {
   private getGridSchema() {
     return {
       type: 'object',
-      required: ['title', 'items'],
+      required: ['items'],
       properties: {
-        title: { type: 'string' },
-        subtitle: { type: 'string' },
-        columns: { type: 'number', minimum: 2, maximum: 4, default: 3 },
-        style: {
+        title: { 
           type: 'string',
-          enum: ['card', 'minimal', 'overlay'],
-          default: 'card',
+          description: 'Section title'
+        },
+        subtitle: { 
+          type: 'string',
+          description: 'Section subtitle'
         },
         items: {
           type: 'array',
+          description: 'Grid items',
           items: {
             type: 'object',
-            required: ['title'],
+            required: ['title', 'description'],
             properties: {
-              title: { type: 'string' },
-              description: { type: 'string' },
-              image: { type: 'string', format: 'uri' },
-              link: { type: 'string', format: 'uri' },
-              category: { type: 'string' },
-              tags: { type: 'array', items: { type: 'string' } },
+              title: { 
+                type: 'string',
+                description: 'Item title'
+              },
+              description: { 
+                type: 'string',
+                description: 'Item description'
+              },
+              image: { 
+                type: 'string', 
+                format: 'uri',
+                description: 'Item image URL'
+              },
+              link: { 
+                type: 'string', 
+                format: 'uri',
+                description: 'Item link URL'
+              },
             },
           },
         },
+      },
+      example: {
+        type: 'grid',
+        title: 'Shop by Category',
+        subtitle: "Find exactly what you're looking for",
+        items: [
+          {
+            title: "Women's Collection",
+            description: 'Elegant dresses, tops, and more',
+            image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400',
+            link: '/shop/women',
+          },
+        ],
       },
     };
   }
@@ -165,28 +229,48 @@ export class ComponentSchemas {
   private getStatsSchema() {
     return {
       type: 'object',
-      required: ['stats'],
+      required: ['items'],
       properties: {
-        title: { type: 'string' },
-        layout: {
+        title: { 
           type: 'string',
-          enum: ['grid', 'row', 'compact'],
-          default: 'grid',
+          description: 'Section title'
         },
-        stats: {
+        items: {
           type: 'array',
+          description: 'Statistics list',
           items: {
             type: 'object',
-            required: ['label', 'value'],
+            required: ['value', 'label'],
             properties: {
-              label: { type: 'string' },
-              value: { type: 'string' },
-              prefix: { type: 'string' },
-              suffix: { type: 'string' },
-              icon: { type: 'string' },
+              value: { 
+                type: 'string',
+                description: 'The metric value (e.g., "50K+", "99.9%")'
+              },
+              label: { 
+                type: 'string',
+                description: 'Metric description'
+              },
             },
           },
         },
+      },
+      example: {
+        type: 'stats',
+        title: 'Proven results that speak for themselves',
+        items: [
+          {
+            value: '50K+',
+            label: 'Active Teams',
+          },
+          {
+            value: '99.9%',
+            label: 'Uptime SLA',
+          },
+          {
+            value: '2M+',
+            label: 'Tasks Completed',
+          },
+        ],
       },
     };
   }
@@ -194,33 +278,56 @@ export class ComponentSchemas {
   private getTeamSchema() {
     return {
       type: 'object',
-      required: ['title', 'members'],
+      required: ['members'],
       properties: {
-        title: { type: 'string' },
-        layout: { type: 'string', enum: ['grid', 'carousel'], default: 'grid' },
+        title: { 
+          type: 'string',
+          description: 'Section title'
+        },
+        subtitle: { 
+          type: 'string',
+          description: 'Section subtitle'
+        },
         members: {
           type: 'array',
+          description: 'Team member list',
           items: {
             type: 'object',
-            required: ['name', 'role', 'avatar'],
+            required: ['name', 'role', 'image'],
             properties: {
-              name: { type: 'string' },
-              role: { type: 'string' },
-              avatar: { type: 'string', format: 'uri' },
-              bio: { type: 'string' },
-              social: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    platform: { type: 'string' },
-                    url: { type: 'string', format: 'uri' },
-                  },
-                },
+              name: { 
+                type: 'string',
+                description: 'Member name'
+              },
+              role: { 
+                type: 'string',
+                description: 'Job title/position'
+              },
+              bio: { 
+                type: 'string',
+                description: 'Short biography'
+              },
+              image: { 
+                type: 'string', 
+                format: 'uri',
+                description: 'Profile photo URL'
               },
             },
           },
         },
+      },
+      example: {
+        type: 'team',
+        title: 'Meet Our Team',
+        subtitle: 'Passionate people behind your dining experience',
+        members: [
+          {
+            name: 'Marco Rossi',
+            role: 'Executive Chef',
+            bio: 'Trained in Rome, Marco brings 20 years of expertise.',
+            image: 'https://i.pravatar.cc/300?img=12',
+          },
+        ],
       },
     };
   }
@@ -228,29 +335,61 @@ export class ComponentSchemas {
   private getTestimonialsSchema() {
     return {
       type: 'object',
-      required: ['title', 'testimonials'],
+      required: ['items'],
       properties: {
-        title: { type: 'string' },
-        layout: {
+        title: { 
           type: 'string',
-          enum: ['grid', 'carousel', 'masonry'],
-          default: 'grid',
+          description: 'Section title'
         },
-        testimonials: {
+        subtitle: { 
+          type: 'string',
+          description: 'Section subtitle'
+        },
+        items: {
           type: 'array',
+          description: 'Testimonial list',
           items: {
             type: 'object',
-            required: ['name', 'content'],
+            required: ['quote', 'author', 'role'],
             properties: {
-              name: { type: 'string' },
-              role: { type: 'string' },
-              company: { type: 'string' },
-              avatar: { type: 'string', format: 'uri' },
-              content: { type: 'string' },
-              rating: { type: 'number', minimum: 1, maximum: 5 },
+              quote: { 
+                type: 'string',
+                description: 'Testimonial text'
+              },
+              author: { 
+                type: 'string',
+                description: "Person's name"
+              },
+              role: { 
+                type: 'string',
+                description: "Person's job title"
+              },
+              company: { 
+                type: 'string',
+                description: 'Company name (optional)'
+              },
+              avatar: { 
+                type: 'string', 
+                format: 'uri',
+                description: 'Avatar image URL'
+              },
             },
           },
         },
+      },
+      example: {
+        type: 'testimonials',
+        title: 'Loved by teams around the world',
+        subtitle: 'See what our customers have to say',
+        items: [
+          {
+            quote: 'CloudFlow transformed how our team works.',
+            author: 'Sarah Chen',
+            role: 'VP of Engineering',
+            company: 'TechCorp',
+            avatar: 'https://i.pravatar.cc/150?img=1',
+          },
+        ],
       },
     };
   }
@@ -258,23 +397,62 @@ export class ComponentSchemas {
   private getCtaSchema() {
     return {
       type: 'object',
-      required: ['title', 'primaryCta'],
+      required: ['title'],
       properties: {
-        title: { type: 'string' },
-        subtitle: { type: 'string' },
-        description: { type: 'string' },
-        layout: {
+        title: { 
           type: 'string',
-          enum: ['centered', 'split', 'banner'],
-          default: 'centered',
+          description: 'CTA headline'
         },
-        primaryCta: {
+        subtitle: { 
+          type: 'string',
+          description: 'Supporting text'
+        },
+        cta: {
           type: 'object',
-          required: ['text', 'href'],
+          description: 'Action buttons',
           properties: {
-            text: { type: 'string' },
-            href: { type: 'string' },
-            variant: { type: 'string' },
+            primary: {
+              type: 'object',
+              required: ['text', 'href'],
+              properties: {
+                text: { 
+                  type: 'string',
+                  description: 'Button text'
+                },
+                href: { 
+                  type: 'string',
+                  description: 'Button URL'
+                },
+              },
+            },
+            secondary: {
+              type: 'object',
+              properties: {
+                text: { 
+                  type: 'string',
+                  description: 'Button text'
+                },
+                href: { 
+                  type: 'string',
+                  description: 'Button URL'
+                },
+              },
+            },
+          },
+        },
+      },
+      example: {
+        type: 'cta',
+        title: 'Ready to transform your workflow?',
+        subtitle: 'Join 50,000+ teams already using CloudFlow',
+        cta: {
+          primary: {
+            text: 'Start Free Trial',
+            href: '/signup',
+          },
+          secondary: {
+            text: 'Schedule Demo',
+            href: '/demo',
           },
         },
       },
@@ -322,45 +500,90 @@ export class ComponentSchemas {
   private getPricingSchema() {
     return {
       type: 'object',
-      required: ['title', 'plans'],
+      required: ['items'],
       properties: {
-        title: { type: 'string' },
-        plans: {
+        title: { 
+          type: 'string',
+          description: 'Section title'
+        },
+        subtitle: { 
+          type: 'string',
+          description: 'Section subtitle'
+        },
+        items: {
           type: 'array',
+          description: 'Pricing plan list',
           items: {
             type: 'object',
             required: ['name', 'price', 'features', 'cta'],
             properties: {
-              name: { type: 'string' },
-              featured: { type: 'boolean' },
-              price: {
-                type: 'object',
-                properties: {
-                  monthly: { type: 'string' },
-                  yearly: { type: 'string' },
-                  currency: { type: 'string' },
-                },
+              name: { 
+                type: 'string',
+                description: 'Plan name'
+              },
+              price: { 
+                type: 'string',
+                description: 'Price amount (e.g., "$9", "Custom")'
+              },
+              period: { 
+                type: 'string',
+                description: 'Billing period (e.g., "/month", "/year", "")'
+              },
+              description: { 
+                type: 'string',
+                description: 'Plan description'
               },
               features: {
                 type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    text: { type: 'string' },
-                    included: { type: 'boolean' },
-                  },
-                },
+                description: 'List of features included',
+                items: { type: 'string' },
               },
               cta: {
                 type: 'object',
+                description: 'Call-to-action button',
+                required: ['text', 'href'],
                 properties: {
-                  text: { type: 'string' },
-                  href: { type: 'string' },
+                  text: { 
+                    type: 'string',
+                    description: 'Button text'
+                  },
+                  href: { 
+                    type: 'string',
+                    description: 'Button URL'
+                  },
                 },
+              },
+              highlighted: { 
+                type: 'boolean',
+                description: 'Whether to highlight this plan'
               },
             },
           },
         },
+      },
+      example: {
+        type: 'pricing',
+        title: 'Simple, transparent pricing',
+        subtitle: 'Choose the perfect plan for your team',
+        items: [
+          {
+            name: 'Professional',
+            price: '$29',
+            period: '/user/month',
+            description: 'For growing teams that need more power',
+            features: [
+              'Unlimited users',
+              '100 GB storage',
+              'Advanced integrations',
+              'Priority support',
+            ],
+            cta: {
+              text: 'Start Free Trial',
+              href: '/signup?plan=pro',
+            },
+            highlighted: true,
+          },
+        ],
       },
     };
   }
@@ -368,34 +591,44 @@ export class ComponentSchemas {
   private getFaqSchema() {
     return {
       type: 'object',
-      required: ['title', 'categories'],
+      required: ['items'],
       properties: {
-        title: { type: 'string' },
-        layout: {
+        title: { 
           type: 'string',
-          enum: ['accordion', 'grid'],
-          default: 'accordion',
+          description: 'Section title'
         },
-        categories: {
+        items: {
           type: 'array',
+          description: 'FAQ list',
           items: {
             type: 'object',
+            required: ['question', 'answer'],
             properties: {
-              name: { type: 'string' },
-              items: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  required: ['question', 'answer'],
-                  properties: {
-                    question: { type: 'string' },
-                    answer: { type: 'string' },
-                  },
-                },
+              question: { 
+                type: 'string',
+                description: 'The question'
+              },
+              answer: { 
+                type: 'string',
+                description: 'The answer'
               },
             },
           },
         },
+      },
+      example: {
+        type: 'faq',
+        title: 'Frequently Asked Questions',
+        items: [
+          {
+            question: 'Do I need experience to join?',
+            answer: 'Not at all! We welcome members of all fitness levels.',
+          },
+          {
+            question: 'What should I bring to my first class?',
+            answer: 'Just bring comfortable workout clothes and a water bottle.',
+          },
+        ],
       },
     };
   }
@@ -439,26 +672,50 @@ export class ComponentSchemas {
   private getGallerySchema() {
     return {
       type: 'object',
-      required: ['items'],
+      required: ['images'],
       properties: {
-        title: { type: 'string' },
-        layout: {
+        title: { 
           type: 'string',
-          enum: ['grid', 'masonry', 'carousel'],
-          default: 'grid',
+          description: 'Section title'
         },
-        items: {
+        subtitle: { 
+          type: 'string',
+          description: 'Section subtitle'
+        },
+        images: {
           type: 'array',
+          description: 'Image list',
           items: {
             type: 'object',
-            required: ['image'],
+            required: ['src', 'alt'],
             properties: {
-              image: { type: 'string', format: 'uri' },
-              title: { type: 'string' },
-              description: { type: 'string' },
+              src: { 
+                type: 'string', 
+                format: 'uri',
+                description: 'Image URL'
+              },
+              alt: { 
+                type: 'string',
+                description: 'Alt text for accessibility'
+              },
             },
           },
         },
+      },
+      example: {
+        type: 'gallery',
+        title: 'Taste of Italy',
+        subtitle: 'A visual journey through our culinary creations',
+        images: [
+          {
+            src: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600',
+            alt: 'Pasta dish',
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600',
+            alt: 'Pizza margherita',
+          },
+        ],
       },
     };
   }
@@ -532,6 +789,107 @@ export class ComponentSchemas {
               link: { type: 'string', format: 'uri' },
             },
           },
+        },
+      },
+    };
+  }
+
+  private getLogoCloudSchema() {
+    return {
+      type: 'object',
+      required: ['logos'],
+      properties: {
+        title: { 
+          type: 'string',
+          description: 'Section title'
+        },
+        logos: {
+          type: 'array',
+          description: 'Logo list',
+          items: {
+            type: 'object',
+            required: ['name', 'src'],
+            properties: {
+              name: { 
+                type: 'string',
+                description: 'Company name'
+              },
+              src: { 
+                type: 'string', 
+                format: 'uri',
+                description: 'Logo image URL'
+              },
+            },
+          },
+        },
+      },
+      example: {
+        type: 'logo-cloud',
+        title: 'Trusted by innovative teams worldwide',
+        logos: [
+          {
+            name: 'TechCorp',
+            src: 'https://via.placeholder.com/150x50/3b82f6/ffffff?text=TechCorp',
+          },
+          {
+            name: 'DataFlow',
+            src: 'https://via.placeholder.com/150x50/3b82f6/ffffff?text=DataFlow',
+          },
+        ],
+      },
+    };
+  }
+
+  private getContentSchema() {
+    return {
+      type: 'object',
+      required: ['content'],
+      properties: {
+        title: { 
+          type: 'string',
+          description: 'Section title'
+        },
+        subtitle: { 
+          type: 'string',
+          description: 'Section subtitle'
+        },
+        content: { 
+          type: 'string',
+          description: 'Main text content (supports markdown)'
+        },
+        image: {
+          type: 'object',
+          description: 'Side image',
+          properties: {
+            src: { 
+              type: 'string', 
+              format: 'uri',
+              description: 'Image URL'
+            },
+            alt: { 
+              type: 'string',
+              description: 'Alt text'
+            },
+            position: { 
+              type: 'string',
+              enum: ['left', 'right'],
+              description: 'Image position'
+            },
+          },
+        },
+      },
+      example: {
+        type: 'content',
+        title: 'Programs Designed for You',
+        subtitle: 'Whatever your fitness goal, we have a program',
+        content: `At FitFusion, we believe fitness is personal.
+
+**Strength Training** - Build muscle and increase power.
+**Cardio & HIIT** - Burn calories and boost endurance.`,
+        image: {
+          src: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800',
+          alt: 'Fitness training session',
+          position: 'right',
         },
       },
     };

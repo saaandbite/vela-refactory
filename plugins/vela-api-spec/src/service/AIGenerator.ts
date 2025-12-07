@@ -99,7 +99,7 @@ export class AIGenerator {
     const { siteName, siteDescription, industry, targetAudience, style } =
       params;
 
-    const prompt = `Generate a complete website configuration JSON for a Dynamic Site Generator with Server-Driven UI architecture.
+    const prompt = `Generate a complete website configuration JSON for a modern web builder with full page structure.
 
 Requirements:
 - Site Name: "${siteName}"
@@ -109,21 +109,102 @@ ${targetAudience ? `- Target Audience: "${targetAudience}"` : ''}
 ${style ? `- Style: "${style}"` : ''}
 
 Create a complete site config with:
-1. Site metadata (name, description, logo, favicon)
-2. Theme configuration (colors, fonts, spacing)
-3. Navigation bar with 4-5 menu items
-4. Footer with links and social media
-5. 3-5 pages with appropriate sections
+1. Site metadata (name, description, theme with primary/secondary/accent colors)
+2. Navigation with logo, links (with optional children for dropdowns), and CTA
+3. Footer with logo, tagline, copyright, sections, and social links
+4. Pages array with multiple pages (home, blog, about, docs, status, api)
 
-Use these component types: hero, features, grid, stats, team, testimonials, cta, contact, pricing, faq, blog, gallery, process, video, partners
+IMPORTANT: Each page must have:
+- slug: URL path
+- title: Page title
+- description: Meta description
+- hero: Hero section for non-home pages
+- sections: Array of section objects for home page
+- Additional page-specific fields (categories, posts, guides, etc.)
 
-Return ONLY valid JSON without any markdown formatting. Follow this structure:
+Section types and their props structure:
+- hero: { type: 'hero', id: string, props: { layout, title, subtitle, buttons: [{ text, href, variant }], trustIndicators: [], background: { gradient }, image } }
+- features: { type: 'features', id: string, props: { title, subtitle, columns, items: [{ id, title, description, icon: { value } }] } }
+- stats: { type: 'stats', id: string, props: { background, items: [{ id, value, label }] } }
+- testimonials: { type: 'testimonials', id: string, props: { title, subtitle, trustBadge, items: [{ id, content, rating, author: { name, role } }] } }
+
+Return ONLY valid JSON. Structure:
 {
-  "site": { "name": "", "description": "", "url": "", "logo": "", "favicon": "" },
-  "theme": { "primaryColor": "", "secondaryColor": "", "accentColor": "", "fontFamily": "", "spacing": "" },
-  "navbar": { "logo": "", "links": [{ "label": "", "path": "" }], "cta": { "label": "", "path": "" } },
-  "footer": { "copyright": "", "links": [], "social": [] },
-  "pages": []
+  "site": {
+    "name": "${siteName}",
+    "description": "${siteDescription}",
+    "theme": {
+      "primary": "#hex",
+      "secondary": "#hex",
+      "accent": "#hex"
+    },
+    "navigation": {
+      "logo": { "text": "Logo" },
+      "links": [
+        { "text": "Features", "href": "#features" },
+        { "text": "Resources", "href": "#", "children": [{ "text": "Docs", "href": "/docs" }] }
+      ],
+      "cta": { "text": "Get Started", "href": "/signup" }
+    },
+    "footer": {
+      "logo": { "text": "Logo" },
+      "tagline": "Tagline text",
+      "copyright": "© 2025 Company",
+      "sections": [
+        { "title": "Product", "links": [{ "text": "Features", "href": "#features" }] }
+      ],
+      "social": [
+        { "platform": "twitter", "url": "https://twitter.com/company" }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "slug": "/",
+      "title": "Home",
+      "description": "Description",
+      "sections": [
+        {
+          "type": "hero",
+          "id": "hero",
+          "props": {
+            "layout": "centered",
+            "title": "Main Title",
+            "subtitle": "Subtitle text",
+            "buttons": [
+              { "text": "Get Started", "href": "/signup", "variant": "primary" }
+            ],
+            "trustIndicators": ["500K+ Users"],
+            "background": { "gradient": "from-blue-50 to-white" },
+            "image": "https://images.unsplash.com/photo-xxx"
+          }
+        },
+        {
+          "type": "features",
+          "id": "features",
+          "props": {
+            "title": "Features Title",
+            "subtitle": "Features subtitle",
+            "columns": 3,
+            "items": [
+              { "id": "f1", "title": "Feature 1", "description": "Description", "icon": { "value": "🚀" } }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slug": "/blog",
+      "title": "Blog",
+      "description": "Blog description",
+      "hero": { "title": "Blog Title", "subtitle": "Blog subtitle" },
+      "categories": ["All", "Category1"],
+      "posts": [
+        { "id": 1, "title": "Post Title", "excerpt": "Excerpt", "category": "Category1", "date": "15 Nov 2024", "image": "https://...", "readTime": "5 min" }
+      ],
+      "newsletter": { "title": "Subscribe", "description": "Get updates", "placeholder": "Email", "buttonText": "Subscribe" }
+    }
+  ]
 }`;
 
     const result = await this.callMultipleModels(prompt);
@@ -132,7 +213,6 @@ Return ONLY valid JSON without any markdown formatting. Follow this structure:
     try {
       return JSON.parse(cleanContent);
     } catch (e) {
-      // Try to extract JSON from response
       const jsonMatch = cleanContent.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         return JSON.parse(jsonMatch[0]);
@@ -192,22 +272,19 @@ Return ONLY valid JSON without markdown. Structure:
     const { type, context, content } = params;
 
     const componentSchemas: Record<string, string> = {
-      hero: 'Hero section with title, subtitle, description, CTA buttons, and optional image',
+      hero: 'Hero section with alignment, title, subtitle, cta (primary/secondary), and optional image',
+      'logo-cloud': 'Company/partner logos with title and logos array (name, src)',
       features:
-        'Features grid with icon, title, and description for each feature',
-      grid: 'Generic content grid with cards (image, title, description, link)',
-      stats: 'Statistics display with number, label, and optional description',
-      team: 'Team members with photo, name, role, bio, and social links',
-      testimonials: 'Customer testimonials with quote, author, role, avatar',
-      cta: 'Call-to-action section with title, description, and buttons',
-      contact: 'Contact form with fields and contact information',
-      pricing: 'Pricing plans with features, price, and CTA',
-      faq: 'Frequently asked questions with question and answer pairs',
-      blog: 'Blog post list with title, excerpt, author, date, image',
-      gallery: 'Image gallery with title, description, and images',
-      process: 'Step-by-step process with icon, title, description',
-      video: 'Video embed section with title, description, video URL',
-      partners: 'Partner logos with name, logo, and optional link',
+        'Features with layout (grid/alternate), title, subtitle, items (icon, title, description)',
+      stats: 'Statistics display with title and items (value, label)',
+      testimonials: 'Customer testimonials with title, subtitle, items (quote, author, role, company, avatar)',
+      pricing: 'Pricing plans with title, subtitle, items (name, price, period, description, features, cta, highlighted)',
+      team: 'Team members with title, subtitle, members (name, role, bio, image)',
+      gallery: 'Image gallery with title, subtitle, images (src, alt)',
+      content: 'Text content with title, subtitle, content (markdown), optional image (src, alt, position)',
+      grid: 'Generic grid with title, subtitle, items (title, description, image, link)',
+      faq: 'FAQ with title and items (question, answer)',
+      cta: 'Call-to-action with title, subtitle, cta (primary/secondary)',
     };
 
     const schema = componentSchemas[type] || 'Generic component';
@@ -273,19 +350,84 @@ Return the enhanced component as valid JSON without markdown. Keep the same stru
   }
 
   async generateFromPrompt(prompt: string): Promise<any> {
-    const fullPrompt = `You are a website configuration generator. Generate a complete website configuration based on this prompt:
+    const fullPrompt = `You are a website configuration generator. Generate a complete website configuration with full page structure based on this prompt:
 
 "${prompt}"
 
-Analyze the prompt and create appropriate:
-- Site configuration
-- Theme
-- Pages with sections
-- Components
+Analyze the prompt and create:
+1. Site configuration (name, description, theme)
+2. Navigation (logo, links with optional children, cta)
+3. Footer (logo, tagline, copyright, sections, social)
+4. Pages array with multiple pages including:
+   - Home page (/) with sections array
+   - Blog page (/blog) with hero, categories, posts, newsletter
+   - About page (/about) with hero, stats, mission, vision, values, team
+   - Docs page (/docs) with hero and guides
+   - Status/tracking page (/status) with hero and statuses
+   - API/calculator page (/api) with hero and comingSoon
 
-Use these component types: hero, features, grid, stats, team, testimonials, cta, contact, pricing, faq, blog, gallery, process, video, partners
+Section structure for home page:
+- hero: { type: 'hero', id: 'hero', props: { layout: 'centered', title, subtitle, buttons: [{ text, href, variant }], trustIndicators: [], background: { gradient }, image } }
+- features: { type: 'features', id: 'features', props: { title, subtitle, columns: 3, items: [{ id, title, description, icon: { value } }] } }
+- stats: { type: 'stats', id: 'stats', props: { background: 'bg-color', items: [{ id, value, label }] } }
+- testimonials: { type: 'testimonials', id: 'testimonials', props: { title, subtitle, trustBadge, items: [{ id, content, rating, author: { name, role } }] } }
 
-Return ONLY valid JSON without markdown formatting following the site config structure.`;
+Return ONLY valid JSON. Full structure:
+{
+  "site": {
+    "name": "Site Name",
+    "description": "Description",
+    "theme": { "primary": "#hex", "secondary": "#hex", "accent": "#hex" },
+    "navigation": {
+      "logo": { "text": "Logo" },
+      "links": [
+        { "text": "Features", "href": "#features" },
+        { "text": "Resources", "href": "#", "children": [{ "text": "Docs", "href": "/docs" }] }
+      ],
+      "cta": { "text": "Get Started", "href": "/signup" }
+    },
+    "footer": {
+      "logo": { "text": "Logo" },
+      "tagline": "Tagline",
+      "copyright": "© 2025 Company",
+      "sections": [{ "title": "Product", "links": [{ "text": "Features", "href": "#features" }] }],
+      "social": [{ "platform": "twitter", "url": "https://twitter.com/company" }]
+    }
+  },
+  "pages": [
+    {
+      "slug": "/",
+      "title": "Home",
+      "description": "Home page description",
+      "sections": [
+        { "type": "hero", "id": "hero", "props": { "layout": "centered", "title": "Title", "subtitle": "Subtitle", "buttons": [{ "text": "CTA", "href": "/signup", "variant": "primary" }], "trustIndicators": ["500K+ Users"], "background": { "gradient": "from-blue-50 to-white" }, "image": "https://images.unsplash.com/photo-xxx" } },
+        { "type": "features", "id": "features", "props": { "title": "Features", "subtitle": "Subtitle", "columns": 3, "items": [{ "id": "f1", "title": "Feature", "description": "Desc", "icon": { "value": "🚀" } }] } },
+        { "type": "stats", "id": "stats", "props": { "background": "bg-blue-900", "items": [{ "id": "s1", "value": "500K+", "label": "Users" }] } },
+        { "type": "testimonials", "id": "testimonials", "props": { "title": "Testimonials", "subtitle": "What people say", "trustBadge": "Trusted by thousands", "items": [{ "id": "t1", "content": "Great product!", "rating": 5, "author": { "name": "John Doe", "role": "CEO" } }] } }
+      ]
+    },
+    {
+      "slug": "/blog",
+      "title": "Blog",
+      "description": "Blog description",
+      "hero": { "title": "Blog", "subtitle": "Latest articles" },
+      "categories": ["All", "News", "Guides"],
+      "posts": [{ "id": 1, "title": "Post Title", "excerpt": "Excerpt", "category": "News", "date": "15 Nov 2024", "image": "https://images.unsplash.com/photo-xxx", "readTime": "5 min" }],
+      "newsletter": { "title": "Subscribe", "description": "Get updates", "placeholder": "Email", "buttonText": "Subscribe" }
+    },
+    {
+      "slug": "/about",
+      "title": "About",
+      "description": "About us",
+      "hero": { "title": "About Us", "subtitle": "Our story" },
+      "stats": [{ "value": "5+", "label": "Years" }],
+      "mission": { "title": "Mission", "description": "Our mission", "icon": "vision", "gradient": "from-blue-600 to-blue-700" },
+      "vision": { "title": "Vision", "description": "Our vision", "icon": "mission", "gradient": "from-green-600 to-green-700" },
+      "values": { "title": "Values", "subtitle": "What we believe", "items": [{ "title": "Value", "description": "Description", "icon": "check" }] },
+      "team": { "title": "Team", "subtitle": "Meet the team", "members": [{ "name": "Name", "role": "Role", "image": "https://images.unsplash.com/photo-xxx" }] }
+    }
+  ]
+}`;
 
     const result = await this.callMultipleModels(fullPrompt);
     const cleanContent = this.cleanJsonResponse(result);

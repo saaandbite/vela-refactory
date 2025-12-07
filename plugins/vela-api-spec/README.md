@@ -9,6 +9,8 @@ This plugin provides API specifications and templates for building Server-Driven
 - **Validation**: Validate site configurations against the schema
 - **Examples**: Sample payloads for different use cases (minimal, portfolio, etc.)
 - **Code Generation**: Generate components and pages programmatically
+- **🆕 GitHub Integration**: Save and manage configs in GitHub repository
+- **🤖 AI Generation**: Generate configs from natural language prompts
 
 ## API Endpoints
 
@@ -306,9 +308,8 @@ yarn lint
 
 ## 📚 Documentation
 
-- **[AI Features Guide](./AI_FEATURES.md)** - Complete AI generation documentation
-- **[API Documentation](./docs/API.md)** - Full API reference
-- **[Examples](./docs/EXAMPLES.md)** - Usage examples
+- **[🇮🇩 Setup GitHub](./docs/GITHUB_SETUP_ID.md)** - Panduan setup GitHub integration
+- **[GitHub API Reference](./docs/GITHUB_INTEGRATION.md)** - Complete API documentation
 
 ## License
 

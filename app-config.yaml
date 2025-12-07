@@ -130,3 +130,10 @@ vela:
     apiKey: ${OPENROUTER_API_KEY}
   jina:
     apiKey: ${JINA_API_KEY}
+  # GitHub integration untuk menyimpan generated configs
+  # Ini BERBEDA dari GITHUB_TOKEN untuk Backstage integration
+  github:
+    token: ${VELA_GITHUB_TOKEN}
+    owner: ${VELA_GITHUB_OWNER}
+    repo: ${VELA_GITHUB_REPO}
+    branch: ${VELA_GITHUB_BRANCH:main}

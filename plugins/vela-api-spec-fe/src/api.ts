@@ -30,6 +30,15 @@ export interface VelaApiSpecApi {
   ): Promise<any>;
   aiEnhanceComponent(component: any, instructions: string): Promise<any>;
   aiGenerateFromPrompt(prompt: string): Promise<any>;
+  // GitHub Methods
+  getGitHubInfo(): Promise<any>;
+  saveToGitHub(params: {
+    config: any;
+    filename: string;
+    message: string;
+    branch?: string;
+    skipValidation?: boolean;
+  }): Promise<any>;
 }
 
 export const velaApiSpecApiRef = createApiRef<VelaApiSpecApi>({
@@ -48,7 +57,14 @@ export class VelaApiSpecClient implements VelaApiSpecApi {
     const response = await fetch(`${baseUrl}${path}`, options);
 
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.statusText}`);
+      let errorMessage = response.statusText;
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.error?.message || errorData.message || errorMessage;
+      } catch {
+        // If response is not JSON, use statusText
+      }
+      throw new Error(`API request failed: ${errorMessage}`);
     }
 
     return response.json();
@@ -158,6 +174,24 @@ export class VelaApiSpecClient implements VelaApiSpecApi {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt }),
+    });
+  }
+
+  // GitHub Methods
+  async getGitHubInfo(): Promise<any> {
+    return this.fetch('/github/info');
+  }
+
+  async saveToGitHub(params: {
+    config: any;
+    filename: string;
+    message: string;
+    branch?: string;
+  }): Promise<any> {
+    return this.fetch('/github/save-config', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
     });
   }
 }

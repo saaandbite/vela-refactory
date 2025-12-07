@@ -176,3 +176,41 @@ curl http://localhost:7007/api/vela-api-spec/schemas/components
 # Get specific component schema
 curl http://localhost:7007/api/vela-api-spec/schemas/components/hero
 ```
+
+## 🧪 GitHub Integration Testing
+
+### Test Script
+
+Run the automated test script to verify GitHub integration:
+
+```bash
+./test-github-integration.sh
+```
+
+This script will:
+1. ✅ Get repository info
+2. ✅ List files in repository
+3. ✅ Generate site config with AI
+4. ✅ Save config to GitHub
+5. ✅ Read file back from GitHub
+6. ✅ Update the file
+7. ✅ Optionally delete test file (cleanup)
+
+### Prerequisites
+
+Make sure GitHub integration is configured in `.env`:
+
+```bash
+GITHUB_TOKEN=ghp_your_token
+VELA_GITHUB_OWNER=your-username
+VELA_GITHUB_REPO=your-repo
+VELA_GITHUB_BRANCH=main
+```
+
+See [GitHub Setup Guide](../docs/GITHUB_SETUP_ID.md) for detailed setup instructions.
+
+## 📚 More Documentation
+
+- [GitHub Integration Guide](../docs/GITHUB_INTEGRATION.md) - Complete API reference
+- [Setup Guide (ID)](../docs/GITHUB_SETUP_ID.md) - Panduan setup lengkap
+- [Main README](../README.md) - Plugin overview

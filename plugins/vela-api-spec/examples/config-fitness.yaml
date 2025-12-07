@@ -1,0 +1,195 @@
+site:
+  name: 'FitLife Pro'
+  description: 'Your ultimate fitness and wellness companion'
+  theme:
+    primary: '#10b981'
+    secondary: '#3b82f6'
+    accent: '#1e293b'
+  navigation:
+    logo:
+      text: 'FitLife Pro'
+    links:
+      - text: 'Programs'
+        href: '#features'
+      - text: 'Results'
+        href: '#stats'
+      - text: 'Resources'
+        href: '#'
+        children:
+          - text: 'Workout Plans'
+            href: '/docs'
+          - text: 'Success Stories'
+            href: '/blog'
+      - text: 'About'
+        href: '/about'
+    cta:
+      text: 'Start Free Trial'
+      href: '/signup'
+  footer:
+    logo:
+      text: 'FitLife Pro'
+    tagline: 'Transform your body and mind with personalized fitness programs.'
+    copyright: '© 2025 FitLife Pro. All rights reserved.'
+    sections:
+      - title: 'Programs'
+        links:
+          - text: 'All Programs'
+            href: '#features'
+          - text: 'Popular Workouts'
+            href: '#stats'
+      - title: 'Company'
+        links:
+          - text: 'About Us'
+            href: '/about'
+          - text: 'Contact'
+            href: '/contact'
+      - title: 'Resources'
+        links:
+          - text: 'Training Guides'
+            href: '/docs'
+          - text: 'Progress Tracker'
+            href: '/status'
+    social:
+      - platform: 'youtube'
+        url: 'https://youtube.com/fitlifepro'
+      - platform: 'twitter'
+        url: 'https://twitter.com/fitlifepro'
+
+pages:
+  - slug: '/'
+    title: 'Home'
+    description: 'FitLife Pro - Transform Your Body, Elevate Your Life'
+    sections:
+      - type: 'hero'
+        id: 'hero'
+        props:
+          layout: 'centered'
+          title: 'Transform Your Body in 90 Days'
+          subtitle: 'Join 500,000+ members achieving their fitness goals with personalized workout plans.'
+          buttons:
+            - text: 'Start Your Journey'
+              href: '/signup'
+              variant: 'primary'
+            - text: 'View Programs'
+              href: '#features'
+              variant: 'outline'
+          trustIndicators:
+            - '500K+ Active Members'
+            - '1,000+ Certified Trainers'
+            - '24/7 Support'
+          background:
+            gradient: 'from-emerald-50 via-white to-blue-50'
+          image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1000'
+
+      - type: 'features'
+        id: 'features'
+        props:
+          title: 'Fitness Programs for Every Goal'
+          subtitle: 'Choose the perfect program tailored to your fitness level.'
+          columns: 3
+          items:
+            - id: 'f1'
+              title: 'Weight Loss'
+              description: 'Burn fat with high-intensity cardio and strength training.'
+              icon:
+                value: '🔥'
+            - id: 'f2'
+              title: 'Muscle Building'
+              description: 'Build lean muscle with progressive resistance training.'
+              icon:
+                value: '💪'
+            - id: 'f3'
+              title: 'Yoga & Flexibility'
+              description: 'Improve flexibility and mental clarity with guided yoga.'
+              icon:
+                value: '🧘'
+
+      - type: 'stats'
+        id: 'stats'
+        props:
+          background: 'bg-emerald-900'
+          items:
+            - id: 's1'
+              value: '500K+'
+              label: 'Active Members'
+            - id: 's2'
+              value: '1000+'
+              label: 'Certified Trainers'
+            - id: 's3'
+              value: '92%'
+              label: 'Goal Achievement'
+
+      - type: 'testimonials'
+        id: 'testimonials'
+        props:
+          title: 'Real Results from Real People'
+          subtitle: 'See how FitLife Pro transformed their lives.'
+          trustBadge: 'Join 500,000 members transforming their bodies'
+          items:
+            - id: 't1'
+              content: 'Lost 30 pounds in 12 weeks! The personalized plans made all the difference.'
+              rating: 5
+              author:
+                name: 'Jessica Martinez'
+                role: 'Weight Loss Champion'
+
+  - slug: '/blog'
+    title: 'Blog'
+    description: 'Fitness tips and wellness insights'
+    hero:
+      title: 'FitLife Pro Blog'
+      subtitle: 'Expert fitness tips and wellness insights'
+    categories:
+      - 'All'
+      - 'Workouts'
+      - 'Nutrition'
+      - 'Wellness'
+    posts:
+      - id: 1
+        title: '10 Best Exercises for Building Muscle at Home'
+        excerpt: 'Discover effective bodyweight exercises to build strength.'
+        category: 'Workouts'
+        date: '15 Nov 2024'
+        image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=800'
+        readTime: '6 min'
+    newsletter:
+      title: 'Get Fitness Tips Weekly'
+      description: 'Subscribe to receive expert workout tips'
+      placeholder: 'Your Email'
+      buttonText: 'Subscribe'
+
+  - slug: '/about'
+    title: 'About Us'
+    description: 'Learn more about our mission'
+    hero:
+      title: 'About FitLife Pro'
+      subtitle: 'Empowering people to achieve their fitness goals since 2015.'
+    stats:
+      - value: '9+'
+        label: 'Years Experience'
+      - value: '500K+'
+        label: 'Members'
+    mission:
+      title: 'Our Mission'
+      description: 'Make world-class fitness training accessible to everyone.'
+      icon: 'vision'
+      gradient: 'from-emerald-600 to-emerald-700'
+    vision:
+      title: 'Our Vision'
+      description: 'Become the global leader in digital fitness.'
+      icon: 'mission'
+      gradient: 'from-blue-600 to-blue-700'
+    values:
+      title: 'Our Values'
+      subtitle: 'Core principles that drive us'
+      items:
+        - title: 'Science-Based'
+          description: 'All programs backed by sports science research.'
+          icon: 'check'
+    team:
+      title: 'Our Leadership Team'
+      subtitle: 'Led by fitness industry veterans'
+      members:
+        - name: 'Marcus Williams'
+          role: 'CEO & Founder'
+          image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400'

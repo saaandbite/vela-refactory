@@ -1,6 +1,6 @@
 export interface SiteConfig {
   site: {
-    title: string;
+    name: string;
     description: string;
     favicon?: string;
     logo?: string;
@@ -11,16 +11,16 @@ export interface SiteConfig {
   theme: {
     primary: string;
     secondary: string;
-    accent?: string;
-    background: string;
+    accent: string;
+    background?: string;
     surface?: string;
-    text: string;
+    text?: string;
     textSecondary?: string;
     border?: string;
     success?: string;
     warning?: string;
     error?: string;
-    mode: 'light' | 'dark';
+    mode?: 'light' | 'dark';
     borderRadius?: string;
     fontFamily?: string;
     fontSize?: {
@@ -28,18 +28,16 @@ export interface SiteConfig {
       heading?: string;
     };
   };
-  navbar?: NavbarConfig;
+  navigation?: NavigationConfig;
   footer?: FooterConfig;
-  pages: PageConfig[];
+  sections: SectionConfig[];
+  pages?: PageConfig[];
 }
 
-export interface NavbarConfig {
-  type?: 'sticky' | 'fixed' | 'static';
-  transparent?: boolean;
-  showLogo?: boolean;
+export interface NavigationConfig {
   logo?: {
+    text: string;
     image?: string;
-    text?: string;
     link?: string;
   };
   links: NavLink[];
@@ -49,6 +47,8 @@ export interface NavbarConfig {
     variant?: 'primary' | 'secondary' | 'outline';
     icon?: string;
   };
+  type?: 'sticky' | 'fixed' | 'static';
+  transparent?: boolean;
   search?: {
     enabled: boolean;
     placeholder?: string;
@@ -56,14 +56,16 @@ export interface NavbarConfig {
   social?: SocialLink[];
 }
 
+// Legacy support
+export interface NavbarConfig extends NavigationConfig {}
+
 export interface FooterConfig {
-  layout?: 'columns' | 'centered' | 'minimal';
-  showLogo?: boolean;
   logo?: {
+    text: string;
     image?: string;
-    text?: string;
   };
   tagline?: string;
+  copyright: string;
   sections?: FooterSection[];
   social?: SocialLink[];
   contact?: {
@@ -78,10 +80,7 @@ export interface FooterConfig {
     placeholder?: string;
     buttonText?: string;
   };
-  bottom: {
-    copyright: string;
-    links?: Array<{ label: string; path: string }>;
-  };
+  layout?: 'columns' | 'centered' | 'minimal';
   background?: 'default' | 'gradient' | 'image';
   backgroundImage?: string;
 }
@@ -90,33 +89,45 @@ export interface PageConfig {
   path: string;
   title?: string;
   description?: string;
-  sections: ComponentConfig[];
+  sections: SectionConfig[];
 }
 
+export interface SectionConfig {
+  type: string;
+  [key: string]: any;
+}
+
+// Legacy support
 export interface ComponentConfig {
   type: string;
   content: Record<string, any>;
 }
 
 export interface NavLink {
-  label: string;
-  path: string;
+  text: string;
+  href: string;
   type?: 'link' | 'dropdown' | 'button';
   icon?: string;
   children?: Array<{
-    label: string;
-    path: string;
+    text: string;
+    href: string;
     icon?: string;
   }>;
+  // Legacy support
+  label?: string;
+  path?: string;
 }
 
 export interface FooterSection {
   title: string;
   links: Array<{
-    label: string;
-    path: string;
+    text: string;
+    href: string;
     icon?: string;
     external?: boolean;
+    // Legacy support
+    label?: string;
+    path?: string;
   }>;
 }
 

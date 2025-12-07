@@ -17,7 +17,7 @@ export class ApiSpecGenerator {
   getFullTemplate(): SiteConfig {
     return {
       site: {
-        title: 'Your Site Title',
+        name: 'Your Site Title',
         description: 'Your site description',
         logo: 'https://example.com/logo.png',
         language: 'en',
@@ -25,15 +25,18 @@ export class ApiSpecGenerator {
       theme: {
         primary: '#3b82f6',
         secondary: '#8b5cf6',
+        accent: '#0f172a',
         background: '#ffffff',
         text: '#1f2937',
         mode: 'light',
       },
-      navbar: {
-        type: 'sticky',
+      navigation: {
+        logo: {
+          text: 'Your Site',
+        },
         links: [
-          { label: 'Home', path: '/' },
-          { label: 'About', path: '/about' },
+          { text: 'Home', href: '/' },
+          { text: 'About', href: '/about' },
         ],
         cta: {
           text: 'Get Started',
@@ -42,18 +45,19 @@ export class ApiSpecGenerator {
         },
       },
       footer: {
-        layout: 'columns',
+        logo: {
+          text: 'Your Site',
+        },
         tagline: 'Building something amazing',
+        copyright: '© 2024 Your Company',
         sections: [
           {
             title: 'Company',
-            links: [{ label: 'About', path: '/about' }],
+            links: [{ text: 'About', href: '/about' }],
           },
         ],
-        bottom: {
-          copyright: '© 2024 Your Company',
-        },
       },
+      sections: [],
       pages: [
         {
           path: '/',
@@ -73,8 +77,9 @@ export class ApiSpecGenerator {
     return {
       site: { ...template.site, ...input.site },
       theme: { ...template.theme, ...input.theme },
-      navbar: input.navbar || template.navbar,
+      navigation: input.navigation || template.navigation,
       footer: input.footer || template.footer,
+      sections: input.sections || template.sections,
       pages: input.pages || template.pages,
     };
   }
@@ -112,8 +117,8 @@ export class ApiSpecGenerator {
     const warnings: Array<{ field: string; message: string }> = [];
 
     // Validate required fields
-    if (!siteConfig.site?.title) {
-      errors.push({ field: 'site.title', message: 'Site title is required' });
+    if (!siteConfig.site?.name) {
+      errors.push({ field: 'site.name', message: 'Site name is required' });
     }
 
     if (!siteConfig.site?.description) {
@@ -130,30 +135,29 @@ export class ApiSpecGenerator {
       });
     }
 
-    if (!siteConfig.theme?.background) {
+    if (!siteConfig.theme?.secondary) {
       errors.push({
-        field: 'theme.background',
-        message: 'Background color is required',
+        field: 'theme.secondary',
+        message: 'Secondary color is required',
       });
     }
 
-    if (!siteConfig.theme?.text) {
-      errors.push({ field: 'theme.text', message: 'Text color is required' });
-    }
-
-    if (
-      !siteConfig.theme?.mode ||
-      !['light', 'dark'].includes(siteConfig.theme.mode)
-    ) {
+    if (!siteConfig.theme?.accent) {
       errors.push({
-        field: 'theme.mode',
-        message: 'Theme mode must be "light" or "dark"',
+        field: 'theme.accent',
+        message: 'Accent color is required',
       });
     }
 
-    if (!siteConfig.pages || !Array.isArray(siteConfig.pages)) {
-      errors.push({ field: 'pages', message: 'Pages array is required' });
-    } else {
+    // Validate sections or pages
+    if (!siteConfig.sections && !siteConfig.pages) {
+      errors.push({
+        field: 'sections',
+        message: 'Either sections or pages array is required',
+      });
+    }
+
+    if (siteConfig.pages && Array.isArray(siteConfig.pages)) {
       siteConfig.pages.forEach((page: any, index: number) => {
         if (!page.path) {
           errors.push({
@@ -171,10 +175,10 @@ export class ApiSpecGenerator {
     }
 
     // Warnings
-    if (!siteConfig.navbar) {
+    if (!siteConfig.navigation && !siteConfig.navbar) {
       warnings.push({
-        field: 'navbar',
-        message: 'Navbar configuration is recommended',
+        field: 'navigation',
+        message: 'Navigation configuration is recommended',
       });
     }
 
@@ -199,21 +203,21 @@ export class ApiSpecGenerator {
     const examples: Record<string, any> = {
       minimal: {
         site: {
-          title: 'TechStart Solutions',
+          name: 'TechStart Solutions',
           description: 'Enterprise software solutions',
         },
         theme: {
           primary: '#2563eb',
           secondary: '#7c3aed',
-          background: '#ffffff',
-          text: '#1f2937',
-          mode: 'light',
+          accent: '#0f172a',
         },
-        navbar: {
-          type: 'sticky',
+        navigation: {
+          logo: {
+            text: 'TechStart',
+          },
           links: [
-            { label: 'Home', path: '/' },
-            { label: 'Services', path: '/services' },
+            { text: 'Home', href: '/' },
+            { text: 'Services', href: '/services' },
           ],
           cta: {
             text: 'Get Started',
@@ -221,48 +225,44 @@ export class ApiSpecGenerator {
           },
         },
         footer: {
-          layout: 'minimal',
-          bottom: {
-            copyright: '© 2024 TechStart Solutions',
-          },
+          copyright: '© 2024 TechStart Solutions',
         },
-        pages: [
+        sections: [
           {
-            path: '/',
-            sections: [
-              {
-                type: 'hero',
-                content: {
-                  title: 'Transform Your Business',
-                  cta: {
-                    text: 'Get Started',
-                    href: '/start',
-                  },
-                },
+            type: 'hero',
+            title: 'Transform Your Business',
+            cta: {
+              primary: {
+                text: 'Get Started',
+                href: '/start',
               },
-            ],
+            },
           },
         ],
       },
       portfolio: {
         site: {
-          title: 'Pixel Perfect Studio',
+          name: 'Pixel Perfect Studio',
           description: 'Award-winning digital agency',
           logo: 'https://example.com/logo.svg',
         },
         theme: {
           primary: '#f59e0b',
           secondary: '#ec4899',
+          accent: '#0f172a',
           background: '#0f172a',
           text: '#f1f5f9',
           mode: 'dark',
         },
-        navbar: {
+        navigation: {
+          logo: {
+            text: 'Pixel Perfect',
+          },
           type: 'sticky',
           transparent: true,
           links: [
-            { label: 'Work', path: '/work' },
-            { label: 'Services', path: '/services' },
+            { text: 'Work', href: '/work' },
+            { text: 'Services', href: '/services' },
           ],
           cta: {
             text: 'Start Project',
@@ -270,35 +270,30 @@ export class ApiSpecGenerator {
           },
         },
         footer: {
-          layout: 'columns',
+          logo: {
+            text: 'Pixel Perfect',
+          },
           tagline: 'Crafting digital experiences',
+          copyright: '© 2024 Pixel Perfect Studio',
           sections: [
             {
               title: 'Services',
-              links: [{ label: 'Web Design', path: '/services/web-design' }],
+              links: [{ text: 'Web Design', href: '/services/web-design' }],
             },
           ],
-          bottom: {
-            copyright: '© 2024 Pixel Perfect Studio',
-          },
         },
-        pages: [
+        sections: [
           {
-            path: '/',
-            sections: [
-              {
-                type: 'hero',
-                content: {
-                  title: 'We Create Digital Experiences',
-                  subtitle: 'Award-winning creative agency',
-                  height: 'full',
-                  cta: {
-                    text: 'View Our Work',
-                    href: '/work',
-                  },
-                },
+            type: 'hero',
+            title: 'We Create Digital Experiences',
+            subtitle: 'Award-winning creative agency',
+            alignment: 'center',
+            cta: {
+              primary: {
+                text: 'View Our Work',
+                href: '/work',
               },
-            ],
+            },
           },
         ],
       },

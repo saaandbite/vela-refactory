@@ -6,6 +6,7 @@ import Router from 'express-promise-router';
 import { ApiSpecGenerator } from './service/ApiSpecGenerator';
 import { ComponentSchemas } from './service/ComponentSchemas';
 import { AIGenerator } from './service/AIGenerator';
+import { GitHubService } from './service/GitHubService';
 import { FormatConverter } from './utils/formatConverter';
 
 export async function createRouter({
@@ -21,6 +22,17 @@ export async function createRouter({
   const apiSpecGenerator = new ApiSpecGenerator(config);
   const componentSchemas = new ComponentSchemas();
   const aiGenerator = new AIGenerator(config);
+  
+  // Initialize GitHub service (optional - only if configured)
+  let githubService: GitHubService | null = null;
+  try {
+    console.log('Attempting to initialize GitHubService...');
+    githubService = new GitHubService(config);
+    console.log('GitHubService initialized successfully!');
+  } catch (error) {
+    // GitHub not configured, endpoints will return appropriate errors
+    console.warn('GitHub integration not configured:', error);
+  }
 
   // Health check endpoint
   router.get('/health', (_, res) => {
@@ -282,6 +294,170 @@ export async function createRouter({
         error: error instanceof Error ? error.message : 'Unknown error',
       });
     }
+  });
+
+  // ============= GitHub Integration Endpoints =============
+
+  // Get GitHub repository info
+  router.get('/github/info', async (req, res) => {
+    if (!githubService) {
+      throw new InputError('GitHub integration not configured');
+    }
+
+    try {
+      await httpAuth.credentials(req, { allow: ['user'] });
+    } catch {
+      // Allow unauthenticated
+    }
+
+    const info = await githubService.getRepoInfo();
+    res.json(info);
+  });
+
+  // List files in GitHub repository
+  router.get('/github/files', async (req, res) => {
+    if (!githubService) {
+      throw new InputError('GitHub integration not configured');
+    }
+
+    try {
+      await httpAuth.credentials(req, { allow: ['user'] });
+    } catch {
+      // Allow unauthenticated
+    }
+
+    const { path = '', branch } = req.query;
+    const files = await githubService.listFiles(
+      path as string,
+      branch as string,
+    );
+    res.json({ files });
+  });
+
+  // Get file from GitHub
+  router.get('/github/file', async (req, res) => {
+    if (!githubService) {
+      throw new InputError('GitHub integration not configured');
+    }
+
+    const { path, branch } = req.query;
+    if (!path) {
+      throw new InputError('Missing required query parameter: path');
+    }
+
+    try {
+      await httpAuth.credentials(req, { allow: ['user'] });
+    } catch {
+      // Allow unauthenticated
+    }
+
+    const file = await githubService.getFile(path as string, branch as string);
+    res.json(file);
+  });
+
+  // Save configuration to GitHub
+  router.post('/github/save', async (req, res) => {
+    if (!githubService) {
+      throw new InputError('GitHub integration not configured');
+    }
+
+    const { path, content, message, branch, sha } = req.body;
+    if (!path || !content || !message) {
+      throw new InputError(
+        'Missing required fields: path, content, message',
+      );
+    }
+
+    try {
+      await httpAuth.credentials(req, { allow: ['user'] });
+    } catch {
+      // Allow unauthenticated
+    }
+
+    const result = await githubService.saveFile({
+      path,
+      content: typeof content === 'string' ? content : JSON.stringify(content, null, 2),
+      message,
+      branch,
+      sha,
+    });
+    res.json(result);
+  });
+
+  // Save generated config to GitHub (without strict validation)
+  router.post('/github/save-config', async (req, res) => {
+    if (!githubService) {
+      throw new InputError('GitHub integration not configured');
+    }
+
+    const { config: siteConfig, filename, message, branch, skipValidation } = req.body;
+    if (!siteConfig || !filename) {
+      throw new InputError('Missing required fields: config, filename');
+    }
+
+    try {
+      await httpAuth.credentials(req, { allow: ['user'] });
+    } catch {
+      // Allow unauthenticated
+    }
+
+    // Optional validation (skip by default for AI-generated configs)
+    let validation = { valid: true, errors: [], warnings: [] };
+    if (!skipValidation && skipValidation !== undefined) {
+      validation = apiSpecGenerator.validateSiteConfig(siteConfig);
+      if (!validation.valid) {
+        const errorMessages = validation.errors?.map((err: any) => 
+          typeof err === 'string' ? err : JSON.stringify(err)
+        ).join(', ') || 'Unknown validation error';
+        throw new InputError(`Invalid configuration: ${errorMessages}`);
+      }
+    }
+
+    const commitMessage = message || `Add/Update ${filename}`;
+    const content = JSON.stringify(siteConfig, null, 2);
+
+    // Try to get existing file SHA for update
+    let sha: string | undefined;
+    try {
+      const existingFile = await githubService.getFile(filename, branch);
+      sha = existingFile.sha;
+    } catch {
+      // File doesn't exist, will create new
+    }
+
+    const result = await githubService.saveFile({
+      path: filename,
+      content,
+      message: commitMessage,
+      branch,
+      sha,
+    });
+
+    res.json({
+      ...result,
+      validation,
+    });
+  });
+
+  // Delete file from GitHub
+  router.delete('/github/file', async (req, res) => {
+    if (!githubService) {
+      throw new InputError('GitHub integration not configured');
+    }
+
+    const { path, message, sha, branch } = req.body;
+    if (!path || !message || !sha) {
+      throw new InputError('Missing required fields: path, message, sha');
+    }
+
+    try {
+      await httpAuth.credentials(req, { allow: ['user'] });
+    } catch {
+      // Allow unauthenticated
+    }
+
+    await githubService.deleteFile(path, message, sha, branch);
+    res.json({ success: true, message: 'File deleted successfully' });
   });
 
   return router;
