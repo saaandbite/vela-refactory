@@ -1,4 +1,3 @@
-import React from 'react';
 import { Typography, TextField, Button } from '@material-ui/core';
 import { useStyles } from './styles';
 import { GeneratePageProps } from './types';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { CodeSnippet } from '@backstage/core-components';
 import {
   Typography,

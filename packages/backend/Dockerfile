@@ -67,4 +67,8 @@ COPY --chown=node:node examples ./examples
 COPY --chown=node:node packages/backend/dist/bundle.tar.gz app-config*.yaml ./
 RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
 
+# Copy migration files for database migrations
+COPY --chown=node:node packages/backend/knexfile.js ./packages/backend/
+COPY --chown=node:node packages/backend/migrations ./packages/backend/migrations
+
 CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]

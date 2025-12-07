@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backstage-deployment
+  namespace: backstage
 spec:
   replicas: 1
   selector:
@@ -15,16 +16,73 @@ spec:
       containers:
         - name: backstage
           image: saaandd/backstage:1.0.0
-          # PENTING: Gunakan 'Never' atau 'IfNotPresent'
-          # agar k8s TIDAK mencoba download dari Docker Hub (internet).
-          imagePullPolicy: Never 
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 7007 # Port standar Backstage
+            - containerPort: 7007
+          
+          env:
+            # PostgreSQL credentials from secrets
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: POSTGRES_HOST
+            - name: POSTGRES_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: POSTGRES_PORT
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: POSTGRES_DB
+            
+            # GitHub credentials from secrets
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: GITHUB_TOKEN
+            - name: AUTH_GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: AUTH_GITHUB_CLIENT_ID
+            - name: AUTH_GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: AUTH_GITHUB_CLIENT_SECRET
+            
+            # AI Services API Keys from secrets
+            - name: OPENROUTER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: OPENROUTER_API_KEY
+            - name: JINA_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: JINA_API_KEY
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backstage-service
+  namespace: backstage
 spec:
   selector:
     app: backstage

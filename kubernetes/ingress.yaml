@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: backstage.local
+    - host: vibecode.hackathon.sev-2.com
       http:
         paths:
           - path: /

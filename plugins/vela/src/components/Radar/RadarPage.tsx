@@ -1,6 +1,4 @@
-import React from 'react';
 import { Header, Page, Content, SupportButton, TabbedLayout } from '@backstage/core-components';
-import { UrlInput } from './WebToSpec/UrlInput';
 import { AnalysisCharts } from './Dashboard/AnalysisCharts';
 import { CSVAnalyzer } from './CSVAnalyzer';
 import { OpenSpecPage } from './OpenSpec';

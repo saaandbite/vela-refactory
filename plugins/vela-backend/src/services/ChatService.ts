@@ -1,8 +1,9 @@
-
 // plugins/vela-backend/src/services/ChatService.ts
 import { Knex } from 'knex';
-import { Logger } from 'winston';
-import { DatabaseManager } from '@backstage/backend-common';
+import {
+  LoggerService,
+  DatabaseService,
+} from '@backstage/backend-plugin-api';
 import { v4 as uuidv4 } from 'uuid'; // For generating UUIDs for chat sessions
 
 // --- Interfaces for Data Models ---
@@ -30,6 +31,7 @@ export interface ChatMessage {
   output_content?: string;
   output_type?: 'api_spec' | 'text' | 'error';
   status: 'completed' | 'failed' | 'pending';
+  error_message?: string;
   created_at?: string;
 }
 
@@ -42,7 +44,9 @@ export interface ChatService {
     avatar_url?: string;
   }): Promise<User>;
   createChatSession(userId: number, title: string): Promise<ChatSession>;
-  addChatMessage(message: Omit<ChatMessage, 'id' | 'created_at'>): Promise<ChatMessage>;
+  addChatMessage(
+    message: Omit<ChatMessage, 'id' | 'created_at'>,
+  ): Promise<ChatMessage>;
   listChatSessions(userId: number): Promise<ChatSession[]>;
   listChatMessages(sessionId: string): Promise<ChatMessage[]>;
 }
@@ -50,16 +54,16 @@ export interface ChatService {
 // --- Database Chat Service Implementation ---
 export class DatabaseChatService implements ChatService {
   private readonly client: Knex;
-  private readonly logger: Logger;
+  private readonly logger: LoggerService;
 
-  private constructor(client: Knex, logger: Logger) {
+  private constructor(client: Knex, logger: LoggerService) {
     this.client = client;
     this.logger = logger;
   }
 
   static async create(
-    database: DatabaseManager,
-    logger: Logger,
+    database: DatabaseService,
+    logger: LoggerService,
   ): Promise<DatabaseChatService> {
     const client = await database.getClient();
     return new DatabaseChatService(client, logger);

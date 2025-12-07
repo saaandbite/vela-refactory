@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { InfoCard, CodeSnippet } from '@backstage/core-components';
 import {
   Grid,

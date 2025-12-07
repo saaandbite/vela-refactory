@@ -61,6 +61,10 @@ const useStyles = makeStyles(theme => ({
   statusChip: {
     marginLeft: theme.spacing(2),
   },
+  buttonGroup: {
+    display: 'flex',
+    gap: theme.spacing(2),
+  },
 }));
 
 const MODELS = [
@@ -212,7 +216,7 @@ export const WebContentAnalyzer: React.FC = () => {
                       Your data has been cleaned and is ready for analysis or spec generation
                     </Typography>
                   </Box>
-                  <Box display="flex" gap={2}>
+                  <Box className={classes.buttonGroup}>
                     <Button
                       variant="contained"
                       color="primary"

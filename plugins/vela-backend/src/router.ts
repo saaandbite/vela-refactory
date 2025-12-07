@@ -1,9 +1,8 @@
-import { HttpAuthService } from '@backstage/backend-plugin-api';
-import { InputError, NotModifiedError, NotFoundError } from '@backstage/errors';
+import { HttpAuthService, LoggerService } from '@backstage/backend-plugin-api';
+import { InputError } from '@backstage/errors';
 import { Config } from '@backstage/config';
 import express from 'express';
 import Router from 'express-promise-router';
-import { Logger } from 'winston';
 import { JinaReader } from './service/modules/radar/JinaReader';
 import { DataAnalyzer } from './service/modules/radar/DataAnalyzer';
 import { SpecGenerator } from './service/modules/radar/SpecGenerator';
@@ -13,7 +12,7 @@ import { ChatService } from './services/ChatService'; // Import the new ChatServ
 export interface RouterOptions {
   httpAuth: HttpAuthService;
   config: Config;
-  logger: Logger;
+  logger: LoggerService;
   chatService: ChatService; // Add chatService to options
 }
 
