@@ -1,9 +1,7 @@
 # VELA Backstage Platform
 
 **Domain:** [https://vibecode.hackathon.sev-2.com](https://vibecode.hackathon.sev-2.com)
-**Demo*** 
-  *** [https://jam.dev/c/d8cfb3cb-132a-4b03-9e7d-b3a6e1e2d2e8](https://jam.dev/c/d8cfb3cb-132a-4b03-9e7d-b3a6e1e2d2e8)
-  *** [https://jam.dev/c/feec6da0-4c1c-4cdb-9223-ed8e71c08bea](https://jam.dev/c/feec6da0-4c1c-4cdb-9223-ed8e71c08bea)
+**Demo** [https://jam.dev/c/d8cfb3cb-132a-4b03-9e7d-b3a6e1e2d2e8](https://jam.dev/c/d8cfb3cb-132a-4b03-9e7d-b3a6e1e2d2e8) | [https://jam.dev/c/feec6da0-4c1c-4cdb-9223-ed8e71c08bea](https://jam.dev/c/feec6da0-4c1c-4cdb-9223-ed8e71c08bea)
 
 VELA is a comprehensive Internal Developer Portal (IDP) built on top of [Backstage](https://backstage.io). It integrates advanced AI capabilities, data analysis tools, and Server-Driven UI (SDUI) generation to streamline the development workflow.
 
